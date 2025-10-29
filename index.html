@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>voratsa_</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --primary-color: #0d1117;
+            --secondary-color: #161b22;
+            --accent-color: #38a169;
+            --text-color: #c9d1d9;
+            --border-color: #30363d;
+            --shadow-color: rgba(56, 161, 105, 0.4);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .card {
+            background-color: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            box-shadow: 0 4px 10px var(--shadow-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px var(--shadow-color);
+        }
+
+        .accent-text {
+            color: var(--accent-color);
+        }
+
+        section {
+            padding-top: 18rem; 
+            padding-bottom: 18rem;
+            display: flex;
+            align-items: center; 
+            min-height: 50vh; 
+        }
+        
+        #home {
+            padding-top: 8rem; 
+            min-height: 100vh;
+            padding-bottom: 10rem;
+        }
+
+        #about {
+            padding-top: 8rem; 
+            padding-bottom: 18rem; 
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+            text-shadow: 0 0 5px var(--accent-color);
+        }
+        
+        .section-nav-link {
+            font-weight: 500;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .age-cursor {
+            animation: blink 0.75s step-end infinite;
+            font-weight: bold;
+        }
+        
+        .hover-reveal-container {
+            position: relative;
+        }
+
+        .reveal-content {
+            opacity: 0;
+            max-height: 0;
+            transition: opacity 0.3s ease-in-out, max-height 0.4s ease-out, padding 0.4s ease-out;
+            overflow: hidden;
+            padding-top: 0;
+            visibility: hidden;
+            border-top: none;
+        }
+
+        .hover-reveal-container:hover .reveal-content {
+            opacity: 1;
+            max-height: 300px;
+            padding-top: 0.75rem;
+            visibility: visible;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .flag-img {
+            width: 24px;
+            height: 17px;
+            border-radius: 2px;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        .nav-flag-img {
+            width: 28px;
+            height: 20px;
+            border-radius: 2px;
+        }
+
+        .overlay-flag-btn {
+            background-color: var(--secondary-color);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            transition: all 0.2s;
+            transform-origin: center;
+        }
+
+        .overlay-flag-btn:hover {
+            background-color: #1f2937;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Оверлей выбора языка -->
+    <div id="language-overlay" class="fixed inset-0 z-[100] bg-gray-900 flex flex-col items-center justify-center p-8">
+        <div class="flex space-x-6">
+            <button onclick="selectLanguage('en')" class="overlay-flag-btn transition duration-200 transform hover:scale-105" title="English">
+                <img src="https://www.worldometers.info/img/flags/small/tn_us-flag.gif" alt="US Flag" class="flag-img !w-20 !h-14">
+            </button>
+            <button onclick="selectLanguage('ru')" class="overlay-flag-btn transition duration-200 transform hover:scale-105" title="Русский">
+                <img src="https://www.worldometers.info/img/flags/small/tn_rs-flag.gif" alt="Russian Flag" class="flag-img !w-20 !h-14">
+            </button>
+        </div>
+    </div>
+
+    <div id="app-container" class="opacity-0 transition-opacity duration-500 w-full h-full">
+
+        <!-- Навигационная панель -->
+        <nav class="fixed top-0 left-0 right-0 z-50 p-4 bg-gray-900 bg-opacity-95 shadow-lg border-b border-gray-700">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center">
+                <a href="#home" class="text-2xl font-bold accent-text transition duration-300 transform hover:scale-105 mb-3 sm:mb-0">
+                    <span data-i18n="brand_name">voratsa</span><span class="text-white">_</span>
+                </a>
+                
+                <div class="flex items-center space-x-4 sm:space-x-8">
+                    <nav class="flex justify-center space-x-4 sm:space-x-8">
+                        <a href="#about" class="section-nav-link text-lg font-medium text-gray-300 hover:text-accent-color transition duration-200" data-i18n="nav_about">About Me</a>
+                        <a href="#donations" class="section-nav-link text-lg font-medium text-gray-300 hover:text-accent-color transition duration-200" data-i18n="nav_donations">Support</a>
+                        <a href="#contact" class="section-nav-link text-lg font-medium text-gray-300 hover:text-accent-color transition duration-200" data-i18n="nav_contact">Contact</a>
+                    </nav>
+                    
+                    <!-- Выпадающий список языков -->
+                    <div class="relative inline-block text-left">
+                        <button id="lang-dropdown-button" type="button" class="inline-flex justify-center items-center p-2 rounded-lg bg-gray-700 hover:bg-gray-600 transition duration-200 text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-color focus:ring-offset-gray-900" aria-expanded="false" aria-haspopup="true" onclick="toggleDropdown()">
+                            <img id="current-lang-flag" src="" alt="Current Language Flag" class="nav-flag-img">
+                            <svg class="h-5 w-5 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div id="lang-dropdown-menu" class="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-60" role="menu" aria-orientation="vertical" aria-labelledby="lang-dropdown-button">
+                            <div class="py-1" role="none">
+                                <button id="lang-en-option" onclick="selectLanguage('en', true)" class="w-full text-left flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white transition duration-150" role="menuitem" tabindex="-1">
+                                    <img src="https://www.worldometers.info/img/flags/small/tn_us-flag.gif" alt="US Flag" class="flag-img mr-3"> English
+                                </button>
+                                <button id="lang-ru-option" onclick="selectLanguage('ru', true)" class="w-full text-left flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white transition duration-150" role="menuitem" tabindex="-1">
+                                    <img src="https://www.worldometers.info/img/flags/small/tn_rs-flag.gif" alt="Russian Flag" class="flag-img mr-3"> Русский
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Главная секция -->
+            <section id="home" class="justify-center items-center text-center">
+                <div>
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold mb-4" data-i18n="greeting_main">
+                        Hello, I'm <span class="accent-text">voratsa</span>.
+                    </h1>
+                    <p class="text-xl sm:text-2xl lg:text-3xl font-light text-gray-400" data-i18n="greeting_secondary">
+                        A developer specializing in building modern and robust <b>Web Applications</b>.
+                    </p>
+                    <div class="mt-8 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#about" class="inline-block px-8 py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition duration-300 transform hover:scale-105 shadow-xl">
+                            <i class="fas fa-arrow-down mr-2"></i> <span data-i18n="dive_in">Dive In</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Секция "Обо мне" -->
+            <section id="about" class="flex-col items-center text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-10 border-b-2 border-accent-color pb-2 w-full max-w-lg mx-auto">
+                    <i class="fas fa-user-circle mr-3 accent-text"></i> <span data-i18n="about_title">About Me</span>
+                </h2>
+
+                <!-- Основная информация -->
+                <div class="w-full max-w-md mx-auto card p-6 md:p-8 mb-16 text-left">
+                    <h3 class="text-xl font-semibold mb-4 accent-text"><i class="fas fa-calendar-alt mr-2"></i> <span data-i18n="key_details_header">Key Details</span></h3>
+                    <div class="space-y-3">
+                        <p><b data-i18n="detail_name">Name:</b> <span class="text-white">voratsa</span></p>
+                        <p><b data-i18n="detail_age">Age:</b> <span id="age-display" class="text-white"></span> <span class="age-cursor">|</span></p>
+                        <p><b data-i18n="detail_country">Country:</b> <span class="text-white" data-i18n="country_value">Russia</span></p>
+                    </div>
+                </div>
+
+                <!-- Секция навыков -->
+                <div class="w-full">
+                    <h3 class="text-3xl sm:text-4xl font-bold mb-10 border-b-2 border-accent-color pb-2 w-full max-w-lg mx-auto">
+                        <i class="fas fa-brain mr-3 accent-text"></i> <span data-i18n="skills_title">What voratsa knows</span>
+                    </h3>
+                    <div class="w-full grid md:grid-cols-1 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                        
+                        <!-- Веб-разработка -->
+                        <div class="card p-6 text-left hover-reveal-container cursor-pointer transition duration-300">
+                            <h4 class="text-2xl font-bold mb-4 accent-text"><i class="fas fa-code mr-2"></i> <span data-i18n="web_dev_header">Web Dev</span></h4>
+                            <p class="text-gray-300 mb-3 text-xl font-extrabold text-accent-color" data-i18n="web_dev_desc"></p>
+                            
+                            <div class="flex flex-wrap gap-4 text-white reveal-content">
+                                <span class="flex items-center bg-indigo-600 px-3 py-1 rounded-full text-sm font-medium"><i class="fab fa-html5 mr-1"></i> HTML5</span>
+                                <span class="flex items-center bg-indigo-600 px-3 py-1 rounded-full text-sm font-medium"><i class="fab fa-css3-alt mr-1"></i> CSS3</span>
+                                <span class="flex items-center bg-indigo-600 px-3 py-1 rounded-full text-sm font-medium"><i class="fab fa-js mr-1"></i> JavaScript (ES6+)</span>
+                                <span class="flex items-center bg-indigo-600 px-3 py-1 rounded-full text-sm font-medium"><i class="fab fa-react mr-1"></i> React (Frontend)</span>
+                                <span class="flex items-center bg-indigo-600 px-3 py-1 rounded-full text-sm font-medium"><i class="fab fa-python mr-1"></i> Flask (Python Backend)</span>
+                                <span class="flex items-center bg-indigo-600 px-3 py-1 rounded-full text-sm font-medium"><i class="fab fa-node-js mr-1"></i> Express (Node.js Backend)</span>
+                            </div>
+                        </div>
+
+                        <!-- Разработка Discord ботов -->
+                        <div class="card p-6 text-left hover-reveal-container cursor-pointer transition duration-300">
+                            <h4 class="text-2xl font-bold mb-4 accent-text"><i class="fas fa-headset mr-2"></i> <span data-i18n="discord_dev_header">Discord Bot Dev</span></h4>
+                            <p class="text-gray-300 mb-3 text-xl font-extrabold text-accent-color" data-i18n="discord_dev_desc"></p>
+                            
+                            <div class="flex flex-wrap gap-4 text-white reveal-content">
+                                <span class="bg-purple-600 px-3 py-1 rounded-full text-sm font-medium">Discord.py (Python)</span>
+                                <span class="bg-purple-600 px-3 py-1 rounded-full text-sm font-medium">Discord.js (Node.js)</span>
+                                <span class="bg-purple-600 px-3 py-1 rounded-full text-sm font-medium">Command Handling</span>
+                                <span class="bg-purple-600 px-3 py-1 rounded-full text-sm font-medium">API Integration</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Секция поддержки -->
+            <section id="donations" class="flex-col items-center text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-10 border-b-2 border-accent-color pb-2 w-full max-w-lg mx-auto">
+                    <i class="fas fa-hand-holding-usd mr-3 accent-text"></i> <span data-i18n="donations_title">Support My Work</span>
+                </h2>
+                <div class="w-full max-w-4xl card p-8 mx-auto text-center">
+                    <p class="text-xl mb-8 text-gray-300" data-i18n="donations_desc_crypto">
+                        Crypto donations are a highly appreciated way to support my open-source development and maintenance costs.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+
+                        <!-- BTC -->
+                        <div class="bg-gray-800 p-4 rounded-lg flex flex-col items-center">
+                            <i class="fab fa-bitcoin text-3xl mb-2 text-yellow-500"></i>
+                            <h4 class="font-bold text-white mb-2" data-i18n="coin_btc">Bitcoin (BTC)</h4>
+                            <div class="text-xs text-gray-400 truncate w-full px-2 mb-3" id="addr-btc">
+                                bc1qy334t4fe6kzgdvwl8y7g36pjy3fn0jn0zlmc2n
+                            </div>
+                            <button onclick="copyAddress('btc')" id="btn-btc" class="w-full py-2 bg-yellow-600 hover:bg-yellow-700 rounded-lg text-sm transition duration-150 text-white font-semibold">
+                                <i class="fas fa-copy mr-2"></i> <span data-i18n="copy_address">Copy Address</span>
+                            </button>
+                        </div>
+
+                        <!-- ETH -->
+                        <div class="bg-gray-800 p-4 rounded-lg flex flex-col items-center">
+                            <i class="fab fa-ethereum text-3xl mb-2 text-gray-400"></i>
+                            <h4 class="font-bold text-white mb-2" data-i18n="coin_eth">Ethereum (ETH)</h4>
+                            <div class="text-xs text-gray-400 truncate w-full px-2 mb-3" id="addr-eth">
+                                0xCCcdceb52884deDD74989ab8f424d93e4d46B70b
+                            </div>
+                            <button onclick="copyAddress('eth')" id="btn-eth" class="w-full py-2 bg-gray-600 hover:bg-gray-700 rounded-lg text-sm transition duration-150 text-white font-semibold">
+                                <i class="fas fa-copy mr-2"></i> <span data-i18n="copy_address">Copy Address</span>
+                            </button>
+                        </div>
+
+                        <!-- LTC -->
+                        <div class="bg-gray-800 p-4 rounded-lg flex flex-col items-center">
+                            <i class="fa-solid fa-litecoin-sign text-3xl mb-2 text-blue-400"></i>
+                            <h4 class="font-bold text-white mb-2" data-i18n="coin_ltc">Litecoin (LTC)</h4>
+                            <div class="text-xs text-gray-400 truncate w-full px-2 mb-3" id="addr-ltc">
+                                ltc1q59szmjl3hdqjpjgdp0pn6u2n45ukkpgcw7q3c8
+                            </div>
+                            <button onclick="copyAddress('ltc')" id="btn-ltc" class="w-full py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm transition duration-150 text-white font-semibold">
+                                <i class="fas fa-copy mr-2"></i> <span data-i18n="copy_address">Copy Address</span>
+                            </button>
+                        </div>
+
+                        <!-- MONERO -->
+                        <div class="bg-gray-800 p-4 rounded-lg flex flex-col items-center">
+                            <i class="fa-brands fa-monero text-3xl mb-2 text-orange-500"></i>
+                            <h4 class="font-bold text-white mb-2" data-i18n="coin_xmr">Monero (XMR)</h4>
+                            <div class="text-xs text-gray-400 truncate w-full px-2 mb-3" id="addr-xmr">
+                                46Fskkbzo1DSYB8rVAanjNbCSdC6Vdas79DuYTbSsfJvZHELhJPJAmLfGFvypRyd5K957w5RYTjgzCFFkesNm7baP8hDmkr
+                            </div>
+                            <button onclick="copyAddress('xmr')" id="btn-xmr" class="w-full py-2 bg-orange-600 hover:bg-orange-700 rounded-lg text-sm transition duration-150 text-white font-semibold">
+                                <i class="fas fa-copy mr-2"></i> <span data-i18n="copy_address">Copy Address</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Секция контактов -->
+            <section id="contact" class="flex-col items-center text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-10 border-b-2 border-accent-color pb-2 w-full max-w-lg mx-auto">
+                    <i class="fas fa-envelope-open-text mr-3 accent-text"></i> <span data-i18n="contact_title">Contact</span>
+                </h2>
+                <div class="w-full max-w-2xl card p-8 mx-auto text-center">
+                    <p class="text-xl mb-6 text-gray-300" data-i18n="contact_desc">
+                        I'm always open to connecting and discussing new projects or ideas. You can find me on these platforms:
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-8">
+                        
+                        <a href="mailto:voratsa@proton.me" class="flex items-center justify-center p-3 bg-gray-800 rounded-lg hover:bg-gray-700 transition duration-300 group">
+                            <i class="fas fa-envelope text-xl mr-3 accent-text group-hover:text-white"></i>
+                            <span class="text-white">voratsa@proton.me</span>
+                        </a>
+
+                        <a href="https://github.com/voratsa" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center p-3 bg-gray-800 rounded-lg hover:bg-gray-700 transition duration-300 group">
+                            <i class="fab fa-github text-xl mr-3 accent-text group-hover:text-white"></i>
+                            <span class="text-white">voratsa</span>
+                        </a>
+
+                        <div class="flex items-center justify-center p-3 bg-gray-800 rounded-lg">
+                            <i class="fab fa-discord text-xl mr-3 accent-color"></i>
+                            <span class="text-white">voratsa</span>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Футер -->
+        <footer class="p-4 text-center text-sm border-t border-gray-700 mt-12">
+            <p class="mb-2">
+                <span data-i18n="open_source_text">This site is Open Source!</span> 
+                <a href="https://github.com/voratsa/voratsa-portfolio" target="_blank" rel="noopener noreferrer" class="accent-text hover:underline font-semibold">
+                    <i class="fab fa-github mr-1"></i> GitHub
+                </a>
+            </p>
+            <p>&copy; <span id="current-year"></span> voratsa. <span data-i18n="license_mit">Licensed under MIT.</span></p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Конфигурация языков
+        const FLAG_URLS = {
+            en: 'https://www.worldometers.info/img/flags/small/tn_us-flag.gif',
+            ru: 'https://www.worldometers.info/img/flags/small/tn_rs-flag.gif'
+        };
+        const LANGUAGE_NAMES = {
+            en: 'English',
+            ru: 'Русский'
+        };
+
+        // Анимация заголовка
+        const EN_TITLE_SEQUENCE = ["voratsa_", "vorats_", "vorat_", "vora_", "vor_", "vo_", "v_", "vo_", "vor_", "vora_", "vorat_", "vorats_", "voratsa_"];
+        const RU_TITLE_SEQUENCE = ["вораца_", "ворац_", "вора_", "вор_", "во_", "в_", "во_", "вор_", "вора_", "ворац_", "вораца_"];
+        let titleSequenceIndex = 0;
+        let titleIntervalId = null;
+
+        // Локализация
+        const translations = {
+            en: {
+                'brand_name': "voratsa",
+                'greeting_main': "Hello, I'm <span class='accent-text'>voratsa</span>.",
+                'greeting_secondary': "A developer specializing in building modern and robust <b>Web Applications</b>.",
+                'dive_in': "Dive In",
+                'nav_about': "About Me",
+                'nav_donations': "Support",
+                'nav_contact': "Contact",
+                'about_title': "About Me",
+                'skills_title': "What voratsa knows",
+                'donations_title': "Support My Work",
+                'contact_title': "Contact",
+                'open_source_text': "This site is Open Source!",
+                'license_mit': "Licensed under MIT.",
+                'key_details_header': "Key Details",
+                'detail_name': "Name:",
+                'detail_age': "Age:",
+                'detail_country': "Country:",
+                'country_value': "Russia",
+                'web_dev_header': "Web Dev",
+                'web_dev_desc': "HOVER ME!",
+                'discord_dev_header': "Discord Bot Dev",
+                'discord_dev_desc': "HOVER ME!",
+                'donations_desc_crypto': "Crypto donations are a highly appreciated way to support my open-source development and maintenance costs.",
+                'copy_address': "Copy Address",
+                'copied_text': "Copied!",
+                'coin_btc': "Bitcoin (BTC)",
+                'coin_eth': "Ethereum (ETH)",
+                'coin_ltc': "Litecoin (LTC)",
+                'coin_xmr': "Monero (XMR)",
+                'contact_desc': "I'm always open to connecting and discussing new projects or ideas. You can find me on these platforms:",
+                'age_units': "years old",
+            },
+            ru: {
+                'brand_name': "вораца",
+                'greeting_main': "Привет, я <span class='accent-text'>вораца</span>.",
+                'greeting_secondary': "Разработчик, специализирующийся на создании современных и надежных <b>Веб-приложений</b>.",
+                'dive_in': "Начать",
+                'nav_about': "Обо мне",
+                'nav_donations': "Поддержка",
+                'nav_contact': "Контакты",
+                'about_title': "Обо мне",
+                'skills_title': "Что знает вораца",
+                'donations_title': "Поддержите мою работу",
+                'contact_title': "Контакты",
+                'open_source_text': "Этот сайт с открытым исходным кодом!",
+                'license_mit': "Лицензировано под MIT.",
+                'key_details_header': "Основные данные",
+                'detail_name': "Имя:",
+                'detail_age': "Возраст:",
+                'detail_country': "Страна:",
+                'country_value': "Россия",
+                'web_dev_header': "Веб-разработка",
+                'web_dev_desc': "НАВЕДИ!",
+                'discord_dev_header': "Разработка Discord-ботов",
+                'discord_dev_desc': "НАВЕДИ!",
+                'donations_desc_crypto': "Криптовалютные пожертвования — это очень ценный способ поддержать мою разработку с открытым исходным кодом и расходы на обслуживание.",
+                'copy_address': "Копировать адрес",
+                'copied_text': "Скопировано!",
+                'coin_btc': "Биткойн (BTC)",
+                'coin_eth': "Эфириум (ETH)",
+                'coin_ltc': "Лайткойн (LTC)",
+                'coin_xmr': "Монеро (XMR)",
+                'contact_desc': "Я всегда готов к общению и обсуждению новых проектов или идей. Меня можно найти на этих платформах:",
+                'age_units': "лет",
+            }
+        };
+
+        let currentLanguage = 'en';
+        const birthDate = new Date('2011-10-11T00:00:00');
+        let ageDisplay; 
+        let ageIntervalId; 
+
+        // Анимация заголовка вкладки
+        function runTitleAnimation() {
+            const sequence = currentLanguage === 'ru' ? RU_TITLE_SEQUENCE : EN_TITLE_SEQUENCE;
+
+            function animateTitle() {
+                const brandName = translations[currentLanguage]['brand_name'];
+                const currentTitle = brandName.substring(0, brandName.length - titleSequenceIndex) + '_';
+                
+                document.title = sequence[titleSequenceIndex];
+                
+                titleSequenceIndex = (titleSequenceIndex + 1) % sequence.length;
+            }
+
+            if (titleIntervalId) clearInterval(titleIntervalId);
+
+            titleSequenceIndex = 0; 
+            
+            animateTitle(); 
+            titleIntervalId = setInterval(animateTitle, 300); 
+        }
+
+        // Управление выпадающим списком
+        function toggleDropdown() {
+            const menu = document.getElementById('lang-dropdown-menu');
+            const button = document.getElementById('lang-dropdown-button');
+            const isHidden = menu.classList.contains('hidden');
+            
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                button.setAttribute('aria-expanded', 'true');
+            } else {
+                menu.classList.add('hidden');
+                button.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        function closeDropdown() {
+            const menu = document.getElementById('lang-dropdown-menu');
+            menu.classList.add('hidden');
+            document.getElementById('lang-dropdown-button').setAttribute('aria-expanded', 'false');
+        }
+        
+        // Куки для сохранения языка
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "")  + expires + "; path=/; SameSite=Lax";
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for(let i=0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        window.selectLanguage = selectLanguage;
+        window.toggleDropdown = toggleDropdown;
+        window.copyAddress = copyAddress; 
+
+        // Основная функция выбора языка
+        function selectLanguage(lang, shouldCloseDropdown = false) {
+            currentLanguage = lang;
+            
+            setCookie('user_language', lang, 365); 
+
+            const overlay = document.getElementById('language-overlay');
+            if (overlay && overlay.style.display !== 'none') {
+                overlay.style.display = 'none';
+            }
+            document.getElementById('app-container').classList.remove('opacity-0');
+            
+            applyLanguage();
+            
+            runTitleAnimation();
+
+            if (!ageDisplay) {
+                ageDisplay = document.getElementById('age-display');
+                if (ageIntervalId) clearInterval(ageIntervalId); 
+                updateAge();
+                ageIntervalId = setInterval(updateAge, 50); 
+            }
+
+            if (shouldCloseDropdown) {
+                closeDropdown();
+            }
+        }
+
+        // Применение выбранного языка
+        function applyLanguage() {
+            const langDict = translations[currentLanguage];
+
+            document.documentElement.lang = currentLanguage;
+
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (langDict[key]) {
+                    element.innerHTML = langDict[key];
+                }
+            });
+            
+            const currentLangFlag = document.getElementById('current-lang-flag');
+            currentLangFlag.src = FLAG_URLS[currentLanguage];
+            currentLangFlag.alt = `Flag of ${LANGUAGE_NAMES[currentLanguage]}`;
+
+            updateAge(true); 
+
+            document.getElementById('lang-en-option').disabled = currentLanguage === 'en';
+            document.getElementById('lang-ru-option').disabled = currentLanguage === 'ru';
+            
+            runTitleAnimation();
+        }
+
+        // Расчет возраста
+        function updateAge(forceUpdate = false) {
+            if (!ageDisplay) return;
+
+            const now = new Date();
+            const diffMs = now.getTime() - birthDate.getTime();
+            
+            const msPerYear = 1000 * 60 * 60 * 24 * 365.25;
+            
+            const age = diffMs / msPerYear;
+            
+            const formattedAge = age.toFixed(10);
+            
+            const ageUnit = translations[currentLanguage]['age_units'];
+
+            ageDisplay.textContent = `${formattedAge} ${ageUnit}`;
+        }
+
+        // Копирование адресов криптовалют
+        const originalButtonTexts = {};
+
+        function copyAddress(coinId) {
+            const addressElement = document.getElementById(`addr-${coinId}`);
+            const address = addressElement ? addressElement.textContent.trim() : null;
+            const button = document.getElementById(`btn-${coinId}`);
+
+            if (!address || !button) {
+                console.error(`Address or button not found for ${coinId}`);
+                return;
+            }
+
+            const tempInput = document.createElement('textarea');
+            tempInput.value = address;
+            document.body.appendChild(tempInput);
+            
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            if (!originalButtonTexts[coinId]) {
+                originalButtonTexts[coinId] = button.innerHTML;
+            }
+            
+            const copiedText = translations[currentLanguage]['copied_text'];
+            
+            button.innerHTML = `<i class="fas fa-check mr-2"></i> ${copiedText}`;
+            
+            setTimeout(() => {
+                if (button.innerHTML.includes(copiedText)) {
+                    button.innerHTML = originalButtonTexts[coinId];
+                }
+            }, 2000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Проверка сохраненного языка
+            const savedLang = getCookie('user_language');
+            const overlay = document.getElementById('language-overlay');
+            const appContainer = document.getElementById('app-container');
+
+            if (savedLang && translations[savedLang]) {
+                overlay.style.display = 'none';
+                appContainer.classList.remove('opacity-0');
+                
+                selectLanguage(savedLang); 
+
+            } else {
+                overlay.style.display = 'flex';
+                appContainer.classList.add('opacity-0');
+            }
+
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // Закрытие выпадающего списка при клике вне его
+            document.addEventListener('click', (event) => {
+                const dropdownButton = document.getElementById('lang-dropdown-button');
+                const dropdownMenu = document.getElementById('lang-dropdown-menu');
+                
+                if (dropdownButton && dropdownMenu && !dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    closeDropdown();
+                }
+            });
+            
+            // Кастомная прокрутка для навигации
+            const navbar = document.querySelector('nav.fixed');
+            const centeringOffset = 100; 
+
+            function customScrollTo(targetId) {
+                const targetSection = document.querySelector(targetId);
+                if (!targetSection) return;
+
+                const navbarHeight = navbar.offsetHeight;
+                
+                let targetPosition;
+
+                if (targetId === '#home') {
+                    targetPosition = 0;
+                } else {
+                    targetPosition = targetSection.offsetTop - navbarHeight - centeringOffset;
+                    if (targetPosition < 0) targetPosition = 0; 
+                }
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#') {
+                         e.preventDefault(); 
+                         return;
+                    }
+                    
+                    e.preventDefault();
+                    customScrollTo(href);
+                });
+            });
+            
+            // Подсветка активной секции в навигации
+            let currentSection = 'home'; 
+
+            function updateActiveNav(currentSectionId) {
+                document.querySelectorAll('.section-nav-link').forEach(link => {
+                    link.classList.remove('text-accent-color');
+                    
+                    if (link.getAttribute('href') === `#${currentSectionId}`) {
+                        link.classList.add('text-accent-color');
+                    }
+                });
+            }
+
+            const navbarHeight = navbar ? navbar.offsetHeight : 64;
+            const rootMarginValue = `-${navbarHeight + 5}px 0px 0px 0px`;
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                let newActiveSection = null;
+
+                entries.forEach(entry => {
+                    const isFullyVisible = entry.intersectionRatio >= 0.2; 
+
+                    if (entry.isIntersecting && isFullyVisible) {
+                        newActiveSection = entry.target.id;
+                    }
+                });
+
+                if (window.scrollY < 5) { 
+                    newActiveSection = 'home';
+                }
+
+                if (newActiveSection && currentSection !== newActiveSection) {
+                    currentSection = newActiveSection;
+                    updateActiveNav(currentSection);
+                }
+
+            }, {
+                rootMargin: rootMarginValue,
+                threshold: 0.1, 
+            });
+
+            document.querySelectorAll('section[id]').forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // Анимация появления элементов
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.card, section').forEach(el => {
+                el.classList.add('transition', 'duration-700', 'opacity-0', 'transform', 'translate-y-10');
+                observer.observe(el);
+            });
+            
+            updateActiveNav('home');
+        });
+    </script>
+</body>
+</html>
