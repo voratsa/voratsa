@@ -16,7 +16,7 @@ def a():
     </script>'''
     return Response(html,mimetype='text/html; charset=utf-8')
 
-os.path.abspath(os.path.dirname(__file__))
+bd = os.path.abspath(os.path.dirname(__file__))
 
 @app.route('/.well-known/discord')
 def serve_discord():
