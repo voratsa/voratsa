@@ -1,5 +1,6 @@
 from flask import Flask, Response, send_from_directory
 import base64
+import os
 app = Flask(__name__)
 @app.route('/')
 def a():
