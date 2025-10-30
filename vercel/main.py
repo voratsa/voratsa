@@ -6,7 +6,7 @@ def a():
     with open('index.html','r')as b:
         c=b.read().replace(' ','').replace('\n','').replace('\t','')
     d=bytes(int(c[i:i+8],2)for i in range(0,len(c),8))
-    f=''.join(bin(byte)[2:].zfill(8)for byte in d)
+    f=d.decode('utf-8').replace(' ','').replace('\n','').replace('\t','')
     g=bytes(int(f[i:i+8],2)for i in range(0,len(f),8))
     e=base64.b64encode(g).decode('utf-8')
     html=f'''<script>
