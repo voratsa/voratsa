@@ -7,7 +7,7 @@ always excited to learn, build, and connect with fellow developers!
 ---
 
 <div align="center">
-  <img src="https://skillicons.dev/icons?i=linux,html,css,js,py,nodejs,flask,tailwind,react,express,redis,vercel,discordjs,vscodium" alt="some logos" />
+  <img src="https://skillicons.dev/icons?i=linux,html,css,js,py,nodejs,flask,tailwind,react,express,redis,vercel,discordjs" alt="some logos" />
 </div>
 
 ---
