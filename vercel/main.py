@@ -1,6 +1,5 @@
 from flask import Flask, Response, send_from_directory
 import base64
-import os
 app = Flask(__name__)
 @app.route('/')
 def a():
@@ -16,12 +15,6 @@ def a():
     document.write(decodeURIComponent(escape(atob("{e}"))));
     </script>'''
     return Response(html,mimetype='text/html; charset=utf-8')
-
-bd = os.path.abspath(os.path.dirname(__file__))
-
-@app.route('/.well-known/discord')
-def serve_discord():
-    return send_from_directory(os.path.join(bd, '.well-known'), 'discord')
 
 if __name__=='__main__':
     app.run(host='0.0.0.0',port=5000)
