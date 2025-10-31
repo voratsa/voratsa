@@ -638,11 +638,34 @@
             interactivity: {
                 detect_on: "canvas",
                 events: {
-                    onhover: { enable: true, mode: "grab" },
+                    onhover: { enable: true, mode: ["grab", "connect"] },
                     onclick: { enable: true, mode: "push" },
                     resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: { opacity: 0.5 }
+                    },
+                    connect: {
+                        distance: 180,
+                        line_linked: {
+                            opacity: 0.35,
+                            color: "#38a169",
+                            width: 1
+                        },
+                        links: {
+                            enable: true,
+                            distance: 180,
+                            color: "#38a169",
+                            opacity: 0.35,
+                            width: 1
+                        }
+                    },
+                    push: { particles_nb: 4 }
                 }
-            }
+            },
+            retina_detect: true
         });
         const FLAG_URLS = {
             en: 'https://www.worldometers.info/img/flags/small/tn_us-flag.gif',
@@ -1019,11 +1042,34 @@
                                     interactivity: {
                                         detect_on: "canvas",
                                         events: {
-                                            onhover: { enable: true, mode: "grab" },
+                                            onhover: { enable: true, mode: ["grab", "connect"] },
                                             onclick: { enable: true, mode: "push" },
                                             resize: true
+                                        },
+                                        modes: {
+                                            grab: {
+                                                distance: 140,
+                                                line_linked: { opacity: 0.5 }
+                                            },
+                                            connect: {
+                                                distance: 180,
+                                                line_linked: {
+                                                    opacity: 0.35,
+                                                    color: "#38a169",
+                                                    width: 1
+                                                },
+                                                links: {
+                                                    enable: true,
+                                                    distance: 180,
+                                                    color: "#38a169",
+                                                    opacity: 0.35,
+                                                    width: 1
+                                                }
+                                            },
+                                            push: { particles_nb: 4 }
                                         }
-                                    }
+                                    },
+                                    retina_detect: true
                                 });
                             }
                             observer.unobserve(entry.target);
@@ -1049,4 +1095,3 @@
     </script>
 </body>
 </html>
-
