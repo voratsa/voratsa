@@ -10,7 +10,6 @@ def serve_index():
 def send_js():
     return send_file('script.js')
 
-
 @app.route('/style.css')
 def send_css():
     return send_file('style.css')
