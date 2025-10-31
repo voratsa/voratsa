@@ -25,6 +25,7 @@
             color: var(--text-color);
             line-height: 1.6;
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
         .card {
@@ -32,16 +33,39 @@
             border: 1px solid var(--border-color);
             border-radius: 1rem;
             box-shadow: 0 4px 10px var(--shadow-color);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(56, 161, 105, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .card:hover::before {
+            left: 100%;
         }
 
         .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px var(--shadow-color);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px var(--shadow-color);
+            border-color: var(--accent-color);
         }
 
         .accent-text {
             color: var(--accent-color);
+            text-shadow: 0 0 10px rgba(56, 161, 105, 0.5);
+        }
+
+        .glow {
+            text-shadow: 0 0 20px rgba(56, 161, 105, 0.7);
         }
 
         section {
@@ -50,6 +74,7 @@
             display: flex;
             align-items: center; 
             min-height: 50vh; 
+            position: relative;
         }
         
         #home {
@@ -60,11 +85,27 @@
 
         .nav-link:hover {
             color: var(--accent-color);
-            text-shadow: 0 0 5px var(--accent-color);
+            text-shadow: 0 0 8px var(--accent-color);
         }
         
         .section-nav-link {
             font-weight: 500;
+            position: relative;
+        }
+
+        .section-nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .section-nav-link:hover::after {
+            width: 100%;
         }
 
         @keyframes blink {
@@ -83,11 +124,10 @@
         .reveal-content {
             opacity: 0;
             max-height: 0;
-            transition: opacity 0.3s ease-in-out, max-height 0.4s ease-out, padding 0.4s ease-out;
+            transition: all 0.4s ease-in-out;
             overflow: hidden;
             padding-top: 0;
             visibility: hidden;
-            border-top: none;
         }
 
         .hover-reveal-container:hover .reveal-content {
@@ -95,7 +135,6 @@
             max-height: 300px;
             padding-top: 0.75rem;
             visibility: visible;
-            border-top: 1px solid var(--border-color);
         }
         
         .flag-img {
@@ -116,13 +155,16 @@
             background-color: var(--secondary-color);
             padding: 1rem;
             border-radius: 0.75rem;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
             transform-origin: center;
+            border: 1px solid transparent;
         }
 
         .overlay-flag-btn:hover {
             background-color: #1f2937;
             transform: scale(1.05);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(56, 161, 105, 0.3);
         }
 
         .language-flag {
@@ -137,7 +179,7 @@
         .language-flags-container {
             opacity: 0;
             max-height: 0;
-            transition: opacity 0.3s ease-in-out, max-height 0.4s ease-out;
+            transition: all 0.4s ease-in-out;
             overflow: hidden;
         }
 
@@ -146,49 +188,23 @@
             max-height: 100px;
         }
 
-        .skill-bar {
-            height: 8px;
-            background-color: #2d3748;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 0.5rem;
-        }
-        
-        .skill-progress {
-            height: 100%;
-            background-color: var(--accent-color);
-            border-radius: 4px;
-            transition: width 1s ease-in-out;
-        }
-        
         .project-card {
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             overflow: hidden;
         }
         
         .project-card:hover .project-image {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
         
         .project-image {
             transition: transform 0.5s ease;
         }
         
-        .loading-dots:after {
-            content: '';
-            animation: dots 1.5s steps(5, end) infinite;
-        }
-        
-        @keyframes dots {
-            0%, 20% { content: '.'; }
-            40% { content: '..'; }
-            60%, 100% { content: '...'; }
-        }
-        
         .fade-in {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
         }
         
         .fade-in.visible {
@@ -200,11 +216,8 @@
             color: var(--accent-color);
         }
         
-        .typewriter {
-            overflow: hidden;
-            white-space: nowrap;
-            margin: 0 auto;
-            position: relative;
+        .nav-active::after {
+            width: 100%;
         }
         
         .typewriter-cursor {
@@ -213,37 +226,68 @@
             width: 3px;
             animation: blink 1s infinite;
             margin-left: 2px;
+            box-shadow: 0 0 10px var(--accent-color);
         }
-        
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+
+        /* Particles Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
         }
-        
-        @keyframes typing-delete {
-            from { width: 100% }
-            to { width: 0 }
+
+        /* Glowing elements */
+        .glow-border {
+            border: 1px solid transparent;
+            background: linear-gradient(var(--secondary-color), var(--secondary-color)) padding-box,
+                        linear-gradient(45deg, var(--accent-color), transparent) border-box;
         }
-        
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: var(--accent-color); }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(56, 161, 105, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(56, 161, 105, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(56, 161, 105, 0); }
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, var(--accent-color), #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
     </style>
 </head>
 <body class="antialiased">
 
+    <div id="particles-js"></div>
+
     <div id="language-overlay" class="fixed inset-0 z-[100] bg-gray-900 flex flex-col items-center justify-center p-8">
         <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold mb-2 accent-text">voratsa<span class="text-white">_</span></h1>
-            <p class="text-xl text-gray-400" data-i18n="language_prompt">Select your language</p>
+            <a href="#" class="text-4xl font-bold mb-2 accent-text glow floating">voratsa<span class="text-white">_</span></a>
         </div>
         <div class="flex space-x-6">
-            <button onclick="selectLanguage('en')" class="overlay-flag-btn transition duration-200 transform hover:scale-105 flex flex-col items-center" title="English">
+            <button onclick="selectLanguage('en')" class="overlay-flag-btn transition duration-200 transform hover:scale-105 flex flex-col items-center pulse" title="English">
                 <img src="https://www.worldometers.info/img/flags/small/tn_us-flag.gif" alt="US Flag" class="flag-img !w-20 !h-14 mb-2">
                 <span class="text-white font-medium">English</span>
             </button>
-            <button onclick="selectLanguage('ru')" class="overlay-flag-btn transition duration-200 transform hover:scale-105 flex flex-col items-center" title="Русский">
+            <button onclick="selectLanguage('ru')" class="overlay-flag-btn transition duration-200 transform hover:scale-105 flex flex-col items-center pulse" title="Русский">
                 <img src="https://www.worldometers.info/img/flags/small/tn_rs-flag.gif" alt="Russian Flag" class="flag-img !w-20 !h-14 mb-2">
                 <span class="text-white font-medium">Русский</span>
             </button>
@@ -252,9 +296,9 @@
 
     <div id="app-container" class="opacity-0 transition-opacity duration-500 w-full h-full">
 
-        <nav class="fixed top-0 left-0 right-0 z-50 p-4 bg-gray-900 bg-opacity-95 shadow-lg border-b border-gray-700">
+        <nav class="fixed top-0 left-0 right-0 z-50 p-4 bg-gray-900 bg-opacity-95 shadow-lg border-b border-gray-700 backdrop-blur-sm">
             <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center">
-                <a href="#home" class="text-2xl font-bold accent-text transition duration-300 transform hover:scale-105 mb-3 sm:mb-0">
+                <a href="#home" class="text-2xl font-bold accent-text transition duration-300 transform hover:scale-105 mb-3 sm:mb-0 glow">
                     <span data-i18n="brand_name">voratsa</span><span class="text-white">_</span>
                 </a>
                 
@@ -268,13 +312,13 @@
                     </nav>
                     
                     <div class="relative inline-block text-left">
-                        <button id="lang-dropdown-button" type="button" class="inline-flex justify-center items-center p-2 rounded-lg bg-gray-700 hover:bg-gray-600 transition duration-200 text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-color focus:ring-offset-gray-900" aria-expanded="false" aria-haspopup="true" onclick="toggleDropdown()">
+                        <button id="lang-dropdown-button" type="button" class="inline-flex justify-center items-center p-2 rounded-lg bg-gray-700 hover:bg-gray-600 transition duration-200 text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-color focus:ring-offset-gray-900 glow-border" aria-expanded="false" aria-haspopup="true" onclick="toggleDropdown()">
                             <img id="current-lang-flag" src="" alt="Current Language Flag" class="nav-flag-img">
                             <svg class="h-5 w-5 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                             </svg>
                         </button>
-                        <div id="lang-dropdown-menu" class="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-60" role="menu" aria-orientation="vertical" aria-labelledby="lang-dropdown-button">
+                        <div id="lang-dropdown-menu" class="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-60 backdrop-blur-sm" role="menu" aria-orientation="vertical" aria-labelledby="lang-dropdown-button">
                             <div class="py-1" role="none">
                                 <button id="lang-en-option" onclick="selectLanguage('en', true)" class="w-full text-left flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white transition duration-150" role="menuitem" tabindex="-1">
                                     <img src="https://www.worldometers.info/img/flags/small/tn_us-flag.gif" alt="US Flag" class="flag-img mr-3"> English
@@ -294,19 +338,19 @@
             <section id="home" class="justify-center items-center text-center">
                 <div class="fade-in">
                     <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold mb-4" data-i18n="greeting_main">
-                        Hello, I'm <span class="accent-text">voratsa</span>.
+                        Hello, I'm <span class="accent-text glow">voratsa</span>.
                     </h1>
                     <p class="text-xl sm:text-2xl lg:text-3xl font-light text-gray-400 mb-8" data-i18n="greeting_secondary">
-                        A developer specializing in building modern and robust <b>Web Applications</b>.
+                        A developer specializing in building modern and robust <b class="gradient-text">Web Applications</b>.
                     </p>
                     <div id="typewriter-container" class="text-xl sm:text-2xl text-accent-color font-medium mb-8 max-w-2xl mx-auto h-8 flex justify-center items-center">
                         <span id="typewriter-text"></span><span class="typewriter-cursor"></span>
                     </div>
                     <div class="mt-8 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                        <a href="#about" class="inline-block px-8 py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition duration-300 transform hover:scale-105 shadow-xl">
+                        <a href="#about" class="inline-block px-8 py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition duration-300 transform hover:scale-105 shadow-xl glow-border pulse">
                             <i class="fas fa-arrow-down mr-2"></i> <span data-i18n="dive_in">Dive In</span>
                         </a>
-                        <a href="#projects" class="inline-block px-8 py-3 bg-transparent border-2 border-accent-color text-accent-color font-semibold rounded-full hover:bg-accent-color hover:text-white transition duration-300 transform hover:scale-105">
+                        <a href="#projects" class="inline-block px-8 py-3 bg-transparent border-2 border-accent-color text-accent-color font-semibold rounded-full hover:bg-accent-color hover:text-white transition duration-300 transform hover:scale-105 glow-border">
                             <i class="fas fa-code mr-2"></i> <span data-i18n="view_work">View My Work</span>
                         </a>
                     </div>
@@ -314,11 +358,11 @@
             </section>
 
             <section id="about" class="flex-col items-center text-center">
-                <h2 class="text-3xl sm:text-4xl font-bold mb-10 border-b-2 border-accent-color pb-2 w-full max-w-lg mx-auto">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-10 border-b-2 border-accent-color pb-2 w-full max-w-lg mx-auto glow">
                     <i class="fas fa-user-circle mr-3 accent-text"></i> <span data-i18n="about_title">About Me</span>
                 </h2>
 
-                <div class="w-full max-w-md mx-auto card p-6 md:p-8 mb-16 text-left fade-in">
+                <div class="w-full max-w-md mx-auto card p-6 md:p-8 mb-16 text-left fade-in glow-border">
                     <h3 class="text-xl font-semibold mb-4 accent-text"><i class="fas fa-calendar-alt mr-2"></i> <span data-i18n="key_details_header">Key Details</span></h3>
                     <div class="space-y-3">
                         <p><b data-i18n="detail_name">Name:</b> <span class="text-white">voratsa</span></p>
@@ -328,12 +372,12 @@
                 </div>
 
                 <div class="w-full">
-                    <h3 class="text-3xl sm:text-4xl font-bold mb-10 border-b-2 border-accent-color pb-2 w-full max-w-lg mx-auto">
+                    <h3 class="text-3xl sm:text-4xl font-bold mb-10 border-b-2 border-accent-color pb-2 w-full max-w-lg mx-auto glow">
                         <i class="fas fa-brain mr-3 accent-text"></i> <span data-i18n="skills_title">Skills & Expertise</span>
                     </h3>
-                    <div class="w-full grid md:grid-cols-1 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    <div class="w-full grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
                         
-                        <div class="card p-6 text-left hover-reveal-container cursor-pointer transition duration-300 fade-in h-fit">
+                        <div class="card p-6 text-left hover-reveal-container cursor-pointer transition duration-300 fade-in h-fit glow-border">
                             <h4 class="text-2xl font-bold mb-4 accent-text"><i class="fas fa-code mr-2"></i> <span data-i18n="web_dev_header">Web Development</span></h4>
                             
                             <div class="flex flex-wrap gap-2 text-white reveal-content">
@@ -346,7 +390,7 @@
                             </div>
                         </div>
 
-                        <div class="card p-6 text-left hover-reveal-container cursor-pointer transition duration-300 fade-in h-fit">
+                        <div class="card p-6 text-left hover-reveal-container cursor-pointer transition duration-300 fade-in h-fit glow-border">
                             <h4 class="text-2xl font-bold mb-4 accent-text"><i class="fas fa-headset mr-2"></i> <span data-i18n="discord_dev_header">Discord Bot Development</span></h4>
                             
                             <div class="flex flex-wrap gap-2 text-white reveal-content">
@@ -359,10 +403,7 @@
                             </div>
                         </div>
 
-                    </div>
-                    
-                    <div class="w-full max-w-2xl mx-auto mt-6">
-                        <div class="card p-6 text-left hover-reveal-container cursor-pointer transition duration-300 fade-in h-fit">
+                        <div class="card p-6 text-left hover-reveal-container cursor-pointer transition duration-300 fade-in h-fit glow-border">
                             <h4 class="text-2xl font-bold mb-4 accent-text"><i class="fas fa-language mr-2"></i> <span data-i18n="languages_header">Languages</span></h4>
                             
                             <div class="language-flags-container flex gap-8 text-white items-center justify-center mt-4">
@@ -380,20 +421,21 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </section>
             
             <section id="projects" class="flex-col items-center text-center">
-                <h2 class="text-3xl sm:text-4xl font-bold mb-10 border-b-2 border-accent-color pb-2 w-full max-w-lg mx-auto">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-10 border-b-2 border-accent-color pb-2 w-full max-w-lg mx-auto glow">
                     <i class="fas fa-code-branch mr-3 accent-text"></i> <span data-i18n="projects_title">My Projects</span>
                 </h2>
                 
-                <div class="w-full max-w-2xl mx-auto">
+                <div class="w-full grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                     
-                    <div class="card project-card p-6 text-left fade-in h-fit">
+                    <div class="card project-card p-6 text-left fade-in h-fit glow-border">
                         <div class="h-40 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg mb-4 flex items-center justify-center project-image">
-                            <i class="fas fa-language text-5xl text-white"></i>
+                            <i class="fas fa-language text-5xl text-white floating"></i>
                         </div>
                         <h3 class="text-xl font-bold mb-2 accent-text">Elarus Translation API</h3>
                         <p class="text-gray-300 mb-4">High-performance, real-time translation services powered by Groq's LPU infrastructure. Provides a simple JSON API for AI-powered translations with smart caching and rate limiting.</p>
@@ -406,12 +448,29 @@
                             <span class="bg-indigo-600 px-2 py-1 rounded text-xs font-medium">Vercel</span>
                         </div>
                         <div class="flex space-x-2">
-                            <a href="https://github.com/voratsa/elarus" target="_blank" class="flex-1 bg-accent-color text-white text-center py-2 rounded-lg hover:bg-green-600 transition duration-200">
+                            <a href="https://github.com/voratsa/elarus" target="_blank" class="flex-1 bg-accent-color text-white text-center py-2 rounded-lg hover:bg-green-600 transition duration-200 glow-border">
                                 <i class="fab fa-github mr-2"></i>GitHub
                             </a>
-                            <a href="https://elarus.vercel.app" target="_blank" class="flex-1 bg-blue-600 text-white text-center py-2 rounded-lg hover:bg-blue-700 transition duration-200">
+                            <a href="https://elarus.vercel.app" target="_blank" class="flex-1 bg-blue-600 text-white text-center py-2 rounded-lg hover:bg-blue-700 transition duration-200 glow-border">
                                 <i class="fas fa-external-link-alt mr-2"></i>Playground
                             </a>
+                        </div>
+                    </div>
+
+                    <div class="card project-card p-6 text-left fade-in h-fit glow-border">
+                        <div class="h-40 bg-gradient-to-br from-gray-600 to-gray-800 rounded-lg mb-4 flex items-center justify-center project-image">
+                            <i class="fas fa-hourglass-half text-5xl text-gray-400 floating"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-gray-400">Coming Soon</h3>
+                        <p class="text-gray-500 mb-4">Exciting new projects are in development. Stay tuned for more innovative solutions and applications coming your way soon!</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-600 px-2 py-1 rounded text-xs font-medium text-gray-300">In Development</span>
+                            <span class="bg-gray-600 px-2 py-1 rounded text-xs font-medium text-gray-300">Coming Soon</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="flex-1 bg-gray-600 text-gray-400 text-center py-2 rounded-lg cursor-not-allowed">
+                                <i class="fas fa-lock mr-2"></i>Coming Soon
+                            </button>
                         </div>
                     </div>
                     
@@ -419,56 +478,56 @@
             </section>
             
             <section id="donations" class="flex-col items-center text-center">
-                <h2 class="text-3xl sm:text-4xl font-bold mb-10 border-b-2 border-accent-color pb-2 w-full max-w-lg mx-auto">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-10 border-b-2 border-accent-color pb-2 w-full max-w-lg mx-auto glow">
                     <i class="fas fa-hand-holding-usd mr-3 accent-text"></i> <span data-i18n="donations_title">Support My Work</span>
                 </h2>
-                <div class="w-full max-w-4xl card p-8 mx-auto text-center fade-in">
+                <div class="w-full max-w-4xl card p-8 mx-auto text-center fade-in glow-border">
                     <p class="text-xl mb-8 text-gray-300" data-i18n="donations_desc_crypto">
                         Crypto donations are a highly appreciated way to support my open-source development
                     </p>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 
-                        <div class="bg-gray-800 p-4 rounded-lg flex flex-col items-center">
+                        <div class="bg-gray-800 p-4 rounded-lg flex flex-col items-center glow-border">
                             <i class="fab fa-bitcoin text-3xl mb-2 text-yellow-500"></i>
                             <h4 class="font-bold text-white mb-2" data-i18n="coin_btc">Bitcoin (BTC)</h4>
                             <div class="text-xs text-gray-400 truncate w-full px-2 mb-3" id="addr-btc">
                                 bc1qy334t4fe6kzgdvwl8y7g36pjy3fn0jn0zlmc2n
                             </div>
-                            <button onclick="copyAddress('btc')" id="btn-btc" class="w-full py-2 bg-yellow-600 hover:bg-yellow-700 rounded-lg text-sm transition duration-150 text-white font-semibold">
+                            <button onclick="copyAddress('btc')" id="btn-btc" class="w-full py-2 bg-yellow-600 hover:bg-yellow-700 rounded-lg text-sm transition duration-150 text-white font-semibold glow-border">
                                 <i class="fas fa-copy mr-2"></i> <span data-i18n="copy_address">Copy Address</span>
                             </button>
                         </div>
 
-                        <div class="bg-gray-800 p-4 rounded-lg flex flex-col items-center">
+                        <div class="bg-gray-800 p-4 rounded-lg flex flex-col items-center glow-border">
                             <i class="fab fa-ethereum text-3xl mb-2 text-gray-400"></i>
                             <h4 class="font-bold text-white mb-2" data-i18n="coin_eth">Ethereum (ETH)</h4>
                             <div class="text-xs text-gray-400 truncate w-full px-2 mb-3" id="addr-eth">
                                 0xCCcdceb52884deDD74989ab8f424d93e4d46B70b
                             </div>
-                            <button onclick="copyAddress('eth')" id="btn-eth" class="w-full py-2 bg-gray-600 hover:bg-gray-700 rounded-lg text-sm transition duration-150 text-white font-semibold">
+                            <button onclick="copyAddress('eth')" id="btn-eth" class="w-full py-2 bg-gray-600 hover:bg-gray-700 rounded-lg text-sm transition duration-150 text-white font-semibold glow-border">
                                 <i class="fas fa-copy mr-2"></i> <span data-i18n="copy_address">Copy Address</span>
                             </button>
                         </div>
 
-                        <div class="bg-gray-800 p-4 rounded-lg flex flex-col items-center">
+                        <div class="bg-gray-800 p-4 rounded-lg flex flex-col items-center glow-border">
                             <i class="fa-solid fa-litecoin-sign text-3xl mb-2 text-blue-400"></i>
                             <h4 class="font-bold text-white mb-2" data-i18n="coin_ltc">Litecoin (LTC)</h4>
                             <div class="text-xs text-gray-400 truncate w-full px-2 mb-3" id="addr-ltc">
                                 ltc1q59szmjl3hdqjpjgdp0pn6u2n45ukkpgcw7q3c8
                             </div>
-                            <button onclick="copyAddress('ltc')" id="btn-ltc" class="w-full py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm transition duration-150 text-white font-semibold">
+                            <button onclick="copyAddress('ltc')" id="btn-ltc" class="w-full py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm transition duration-150 text-white font-semibold glow-border">
                                 <i class="fas fa-copy mr-2"></i> <span data-i18n="copy_address">Copy Address</span>
                             </button>
                         </div>
 
-                        <div class="bg-gray-800 p-4 rounded-lg flex flex-col items-center">
+                        <div class="bg-gray-800 p-4 rounded-lg flex flex-col items-center glow-border">
                             <i class="fa-brands fa-monero text-3xl mb-2 text-orange-500"></i>
                             <h4 class="font-bold text-white mb-2" data-i18n="coin_xmr">Monero (XMR)</h4>
                             <div class="text-xs text-gray-400 truncate w-full px-2 mb-3" id="addr-xmr">
                                 46Fskkbzo1DSYB8rVAanjNbCSdC6Vdas79DuYTbSsfJvZHELhJPJAmLfGFvypRyd5K957w5RYTjgzCFFkesNm7baP8hDmkr
                             </div>
-                            <button onclick="copyAddress('xmr')" id="btn-xmr" class="w-full py-2 bg-orange-600 hover:bg-orange-700 rounded-lg text-sm transition duration-150 text-white font-semibold">
+                            <button onclick="copyAddress('xmr')" id="btn-xmr" class="w-full py-2 bg-orange-600 hover:bg-orange-700 rounded-lg text-sm transition duration-150 text-white font-semibold glow-border">
                                 <i class="fas fa-copy mr-2"></i> <span data-i18n="copy_address">Copy Address</span>
                             </button>
                         </div>
@@ -478,27 +537,27 @@
             </section>
 
             <section id="contact" class="flex-col items-center text-center">
-                <h2 class="text-3xl sm:text-4xl font-bold mb-10 border-b-2 border-accent-color pb-2 w-full max-w-lg mx-auto">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-10 border-b-2 border-accent-color pb-2 w-full max-w-lg mx-auto glow">
                     <i class="fas fa-envelope-open-text mr-3 accent-text"></i> <span data-i18n="contact_title">Contact</span>
                 </h2>
-                <div class="w-full max-w-2xl card p-8 mx-auto text-center fade-in">
+                <div class="w-full max-w-2xl card p-8 mx-auto text-center fade-in glow-border">
                     <p class="text-xl mb-6 text-gray-300" data-i18n="contact_desc">
                         I'm always open to connecting and discussing new projects or ideas. You can find me on these platforms:
                     </p>
                     
                     <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-8">
                         
-                        <a href="mailto:voratsa@proton.me" class="flex items-center justify-center p-3 bg-gray-800 rounded-lg hover:bg-gray-700 transition duration-300 group">
+                        <a href="mailto:voratsa@proton.me" class="flex items-center justify-center p-3 bg-gray-800 rounded-lg hover:bg-gray-700 transition duration-300 group glow-border">
                             <i class="fas fa-envelope text-xl mr-3 accent-text group-hover:text-white"></i>
                             <span class="text-white">voratsa@proton.me</span>
                         </a>
 
-                        <a href="https://github.com/voratsa" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center p-3 bg-gray-800 rounded-lg hover:bg-gray-700 transition duration-300 group">
+                        <a href="https://github.com/voratsa" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center p-3 bg-gray-800 rounded-lg hover:bg-gray-700 transition duration-300 group glow-border">
                             <i class="fab fa-github text-xl mr-3 accent-text group-hover:text-white"></i>
                             <span class="text-white">voratsa</span>
                         </a>
 
-                        <div class="flex items-center justify-center p-3 bg-gray-800 rounded-lg">
+                        <div class="flex items-center justify-center p-3 bg-gray-800 rounded-lg glow-border">
                             <i class="fab fa-discord text-xl mr-3 accent-color"></i>
                             <span class="text-white">voratsa</span>
                         </div>
@@ -509,7 +568,7 @@
 
         </main>
 
-        <footer class="p-4 text-center text-sm border-t border-gray-700 mt-12">
+        <footer class="p-4 text-center text-sm border-t border-gray-700 mt-12 backdrop-blur-sm">
             <p class="mb-2">
                 <span data-i18n="open_source_text">This site is Open Source!</span> 
                 <a href="https://github.com/voratsa/voratsa" target="_blank" rel="noopener noreferrer" class="accent-text hover:underline font-semibold">
@@ -521,7 +580,43 @@
 
     </div>
 
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
+        // Particles.js configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#38a169" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#38a169",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "grab" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                }
+            }
+        });
+
         const FLAG_URLS = {
             en: 'https://www.worldometers.info/img/flags/small/tn_us-flag.gif',
             ru: 'https://www.worldometers.info/img/flags/small/tn_rs-flag.gif'
@@ -539,9 +634,8 @@
         const translations = {
             en: {
                 'brand_name': "voratsa",
-                'language_prompt': "Select your language",
-                'greeting_main': "Hello, I'm <span class='accent-text'>voratsa</span>.",
-                'greeting_secondary': "A developer specializing in building modern and robust <b>Web Applications</b>.",
+                'greeting_main': "Hello, I'm <span class='accent-text glow'>voratsa</span>.",
+                'greeting_secondary': "A developer specializing in building modern and robust <b class='gradient-text'>Web Applications</b>.",
                 'dive_in': "Dive In",
                 'view_work': "View My Work",
                 'nav_home': "Home",
@@ -575,9 +669,8 @@
             },
             ru: {
                 'brand_name': "вораца",
-                'language_prompt': "Выберите язык",
-                'greeting_main': "Привет, я <span class='accent-text'>вораца</span>.",
-                'greeting_secondary': "Разработчик, специализирующийся на создании современных и надежных <b>Веб-приложений</b>.",
+                'greeting_main': "Привет, я <span class='accent-text glow'>вораца</span>.",
+                'greeting_secondary': "Разработчик, специализирующийся на создании современных и надежных <b class='gradient-text'>Веб-приложений</b>.",
                 'dive_in': "Начать",
                 'view_work': "Мои работы",
                 'nav_home': "Главная",
@@ -616,7 +709,7 @@
         let ageDisplay; 
         let ageIntervalId; 
 
-        const typewriterWords = ["Web Development", "Full-Stack", "Python", "Node.js", "Flask", "React", "Discord Bots", "API Development"];
+        const typewriterWords = ["Web Development", "Full-Stack", "Python", "Node.js", "Flask", "React", "Express", "Vercel", "Redis", "Discord Bots", "Discord.js", "Discord.py", "API Development"];
         let currentWordIndex = 0;
         let typewriterInterval;
 
