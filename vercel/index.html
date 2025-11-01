@@ -123,16 +123,26 @@
             visibility: visible;
         }
         .flag-img {
-            width: 24px;
-            height: 17px;
+            width: auto;
+            height: auto;
+            max-width: 100%;
             border-radius: 2px;
             border: 1px solid rgba(255,255,255,0.2);
             box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        .flag-container {
+            width: 80px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
         }
         .nav-flag-img {
             width: 28px;
             height: 20px;
             border-radius: 2px;
+            object-fit: contain;
         }
         .overlay-flag-btn {
             background-color: var(--secondary-color);
@@ -273,6 +283,65 @@
             justify-content: center;
             text-align: center;
         }
+        
+        /* Fixed dropdown styles */
+        .lang-dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+        .lang-dropdown-menu {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            margin-top: 0.5rem;
+            width: 180px;
+            background-color: var(--secondary-color);
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            z-index: 100;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        .lang-dropdown-menu.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .lang-option {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .lang-option:hover {
+            background-color: rgba(56, 161, 105, 0.1);
+        }
+        .lang-option:focus {
+            outline: none;
+            background-color: rgba(56, 161, 105, 0.2);
+        }
+        .lang-option.active {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        .lang-option img {
+            width: 24px;
+            height: 16px;
+            margin-right: 0.75rem;
+            border-radius: 2px;
+            object-fit: cover;
+        }
+        
         @media (max-width: 768px) {
             section {
                 padding-top: 5rem;
@@ -302,6 +371,9 @@
                 font-size: 0.9rem;
                 padding: 0.5rem;
             }
+            .lang-dropdown-menu {
+                width: 160px;
+            }
         }
         @media (max-width: 640px) {
             .grid-cols-3, .grid-cols-2 {
@@ -313,6 +385,9 @@
             .max-w-6xl, .max-w-4xl, .max-w-2xl {
                 max-width: 100% !important;
                 padding: 0 1rem;
+            }
+            .lang-dropdown-menu {
+                width: 150px;
             }
         }
     </style>
@@ -327,23 +402,33 @@
         </div>
         <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
             <button onclick="selectLanguage('en')" class="overlay-flag-btn transition duration-200 transform hover:scale-105 flex flex-col items-center pulse" title="English">
-                <img src="https://www.worldometers.info/img/flags/small/tn_us-flag.gif" alt="US Flag" class="flag-img !w-20 !h-14 mb-2">
+                <div class="flag-container">
+                    <img src="https://www.worldometers.info/img/flags/small/tn_us-flag.gif" alt="US Flag" class="flag-img">
+                </div>
                 <span class="text-white font-medium">English</span>
             </button>
             <button onclick="selectLanguage('tr')" class="overlay-flag-btn transition duration-200 transform hover:scale-105 flex flex-col items-center pulse" title="Türkçe">
-                <img src="https://www.worldometers.info/img/flags/small/tn_tu-flag.gif" alt="Turkish Flag" class="flag-img !w-20 !h-14 mb-2">
+                <div class="flag-container">
+                    <img src="https://www.worldometers.info/img/flags/small/tn_tu-flag.gif" alt="Turkish Flag" class="flag-img">
+                </div>
                 <span class="text-white font-medium">Türkçe</span>
             </button>
             <button onclick="selectLanguage('fr')" class="overlay-flag-btn transition duration-200 transform hover:scale-105 flex flex-col items-center pulse" title="Français">
-                <img src="https://www.worldometers.info/img/flags/small/tn_fr-flag.gif" alt="French Flag" class="flag-img !w-20 !h-14 mb-2">
+                <div class="flag-container">
+                    <img src="https://www.worldometers.info/img/flags/small/tn_fr-flag.gif" alt="French Flag" class="flag-img">
+                </div>
                 <span class="text-white font-medium">Français</span>
             </button>
             <button onclick="selectLanguage('ar')" class="overlay-flag-btn transition duration-200 transform hover:scale-105 flex flex-col items-center pulse" title="العربية">
-                <img src="https://www.worldometers.info/img/flags/small/tn_sa-flag.gif" alt="Saudi Arabia Flag" class="flag-img !w-20 !h-14 mb-2">
+                <div class="flag-container">
+                    <img src="https://www.worldometers.info/img/flags/small/tn_sa-flag.gif" alt="Saudi Arabia Flag" class="flag-img">
+                </div>
                 <span class="text-white font-medium">العربية</span>
             </button>
             <button onclick="selectLanguage('ru')" class="overlay-flag-btn transition duration-200 transform hover:scale-105 flex flex-col items-center pulse" title="Русский">
-                <img src="https://www.worldometers.info/img/flags/small/tn_rs-flag.gif" alt="Russian Flag" class="flag-img !w-20 !h-14 mb-2">
+                <div class="flag-container">
+                    <img src="https://www.worldometers.info/img/flags/small/tn_rs-flag.gif" alt="Russian Flag" class="flag-img">
+                </div>
                 <span class="text-white font-medium">Русский</span>
             </button>
         </div>
@@ -362,31 +447,29 @@
                         <a href="#donations" class="section-nav-link text-sm sm:text-lg font-medium text-gray-300 hover:text-accent-color transition duration-200" data-i18n="nav_donations">Support</a>
                         <a href="#contact" class="section-nav-link text-sm sm:text-lg font-medium text-gray-300 hover:text-accent-color transition duration-200" data-i18n="nav_contact">Contact</a>
                     </nav>
-                    <div class="relative inline-block text-left">
+                    <div class="lang-dropdown-container">
                         <button id="lang-dropdown-button" type="button" class="inline-flex justify-center items-center p-2 rounded-lg bg-gray-700 hover:bg-gray-600 transition duration-200 text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-color focus:ring-offset-gray-900 glow-border focus-visible" aria-expanded="false" aria-haspopup="true" onclick="toggleDropdown()">
-                            <img id="current-lang-flag" src="" alt="Current Language Flag" class="nav-flag-img">
+                            <img id="current-lang-flag" src="https://www.worldometers.info/img/flags/small/tn_us-flag.gif" alt="Current Language Flag" class="nav-flag-img">
                             <svg class="h-4 w-4 sm:h-5 sm:w-5 ml-1 sm:ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                             </svg>
                         </button>
-                        <div id="lang-dropdown-menu" class="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-60 backdrop-blur-sm" role="menu" aria-orientation="vertical" aria-labelledby="lang-dropdown-button">
-                            <div class="py-1" role="none">
-                                <button id="lang-en-option" onclick="selectLanguage('en', true)" class="w-full text-left flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white transition duration-150 focus-visible" role="menuitem" tabindex="-1">
-                                    <img src="https://www.worldometers.info/img/flags/small/tn_us-flag.gif" alt="US Flag" class="flag-img mr-3"> English
-                                </button>
-                                <button id="lang-tr-option" onclick="selectLanguage('tr', true)" class="w-full text-left flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white transition duration-150 focus-visible" role="menuitem" tabindex="-1">
-                                    <img src="https://www.worldometers.info/img/flags/small/tn_tu-flag.gif" alt="Turkish Flag" class="flag-img mr-3"> Türkçe
-                                </button>
-                                <button id="lang-fr-option" onclick="selectLanguage('fr', true)" class="w-full text-left flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white transition duration-150 focus-visible" role="menuitem" tabindex="-1">
-                                    <img src="https://www.worldometers.info/img/flags/small/tn_fr-flag.gif" alt="French Flag" class="flag-img mr-3"> Français
-                                </button>
-                                <button id="lang-ar-option" onclick="selectLanguage('ar', true)" class="w-full text-left flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white transition duration-150 focus-visible" role="menuitem" tabindex="-1">
-                                    <img src="https://www.worldometers.info/img/flags/small/tn_sa-flag.gif" alt="Saudi Arabia Flag" class="flag-img mr-3"> العربية
-                                </button>
-                                <button id="lang-ru-option" onclick="selectLanguage('ru', true)" class="w-full text-left flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white transition duration-150 focus-visible" role="menuitem" tabindex="-1">
-                                    <img src="https://www.worldometers.info/img/flags/small/tn_rs-flag.gif" alt="Russian Flag" class="flag-img mr-3"> Русский
-                                </button>
-                            </div>
+                        <div id="lang-dropdown-menu" class="lang-dropdown-menu">
+                            <button id="lang-en-option" onclick="selectLanguage('en', true)" class="lang-option" role="menuitem" tabindex="-1">
+                                <img src="https://www.worldometers.info/img/flags/small/tn_us-flag.gif" alt="US Flag"> English
+                            </button>
+                            <button id="lang-tr-option" onclick="selectLanguage('tr', true)" class="lang-option" role="menuitem" tabindex="-1">
+                                <img src="https://www.worldometers.info/img/flags/small/tn_tu-flag.gif" alt="Turkish Flag"> Türkçe
+                            </button>
+                            <button id="lang-fr-option" onclick="selectLanguage('fr', true)" class="lang-option" role="menuitem" tabindex="-1">
+                                <img src="https://www.worldometers.info/img/flags/small/tn_fr-flag.gif" alt="French Flag"> Français
+                            </button>
+                            <button id="lang-ar-option" onclick="selectLanguage('ar', true)" class="lang-option" role="menuitem" tabindex="-1">
+                                <img src="https://www.worldometers.info/img/flags/small/tn_sa-flag.gif" alt="Saudi Arabia Flag"> العربية
+                            </button>
+                            <button id="lang-ru-option" onclick="selectLanguage('ru', true)" class="lang-option" role="menuitem" tabindex="-1">
+                                <img src="https://www.worldometers.info/img/flags/small/tn_rs-flag.gif" alt="Russian Flag"> Русский
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -418,7 +501,7 @@
                 <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
                     <div class="card p-4 sm:p-6 hover-reveal-container cursor-pointer transition duration-300 fade-in h-fit glow-border relative">
                         <div class="skills-card-content">
-                            <h4 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 accent-text"><i class="fas fa-globe mr-2"></i> <span data-i18n="web_dev_header">Web Development</span></h4>
+                            <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 accent-text"><i class="fas fa-globe mr-2"></i> <span data-i18n="web_dev_header">Web Development</span></h3>
                             <div class="flex flex-wrap gap-1 sm:gap-2 text-white reveal-content justify-center">
                                 <span class="flex items-center bg-indigo-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fab fa-html5 mr-1"></i> HTML5</span>
                                 <span class="flex items-center bg-indigo-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fab fa-css3-alt mr-1"></i> CSS3</span>
@@ -434,7 +517,7 @@
                     </div>
                     <div class="card p-4 sm:p-6 hover-reveal-container cursor-pointer transition duration-300 fade-in h-fit glow-border relative">
                         <div class="skills-card-content">
-                            <h4 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 accent-text"><i class="fab fa-discord mr-2"></i> <span data-i18n="discord_dev_header">Discord Bot Development</span></h4>
+                            <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 accent-text"><i class="fab fa-discord mr-2"></i> <span data-i18n="discord_dev_header">Discord Bot Development</span></h3>
                             <div class="flex flex-wrap gap-1 sm:gap-2 text-white reveal-content justify-center">
                                 <span class="flex items-center bg-purple-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fab fa-python mr-1"></i> Discord.py</span>
                                 <span class="flex items-center bg-purple-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fab fa-js mr-1"></i> Discord.js</span>
@@ -448,7 +531,7 @@
                     </div>
                     <div class="card p-4 sm:p-6 hover-reveal-container cursor-pointer transition duration-300 fade-in h-fit glow-border relative">
                         <div class="skills-card-content">
-                            <h4 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 accent-text"><i class="fas fa-code mr-2"></i> <span data-i18n="data_formats_header">Data Formats & Tools</span></h4>
+                            <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 accent-text"><i class="fas fa-code mr-2"></i> <span data-i18n="data_formats_header">Data Formats & Tools</span></h3>
                             <div class="flex flex-wrap gap-1 sm:gap-2 text-white reveal-content justify-center">
                                 <span class="flex items-center bg-green-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fas fa-code mr-1"></i> JSON</span>
                                 <span class="flex items-center bg-green-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fas fa-file-code mr-1"></i> YAML</span>
@@ -541,7 +624,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
                         <div class="bg-gray-800 p-3 sm:p-4 rounded-lg flex flex-col items-center glow-border">
                             <i class="fab fa-bitcoin text-2xl sm:text-3xl mb-2 text-yellow-500"></i>
-                            <h4 class="font-bold text-white mb-2 text-sm sm:text-base" data-i18n="coin_btc">Bitcoin (BTC)</h4>
+                            <h3 class="font-bold text-white mb-2 text-sm sm:text-base" data-i18n="coin_btc">Bitcoin (BTC)</h3>
                             <div class="text-xs text-gray-400 truncate w-full px-2 mb-2 sm:mb-3" id="addr-btc">
                                 bc1qy334t4fe6kzgdvwl8y7g36pjy3fn0jn0zlmc2n
                             </div>
@@ -551,7 +634,7 @@
                         </div>
                         <div class="bg-gray-800 p-3 sm:p-4 rounded-lg flex flex-col items-center glow-border">
                             <i class="fab fa-ethereum text-2xl sm:text-3xl mb-2 text-gray-400"></i>
-                            <h4 class="font-bold text-white mb-2 text-sm sm:text-base" data-i18n="coin_eth">Ethereum (ETH)</h4>
+                            <h3 class="font-bold text-white mb-2 text-sm sm:text-base" data-i18n="coin_eth">Ethereum (ETH)</h3>
                             <div class="text-xs text-gray-400 truncate w-full px-2 mb-2 sm:mb-3" id="addr-eth">
                                 0xCCcdceb52884deDD74989ab8f424d93e4d46B70b
                             </div>
@@ -561,7 +644,7 @@
                         </div>
                         <div class="bg-gray-800 p-3 sm:p-4 rounded-lg flex flex-col items-center glow-border">
                             <i class="fa-solid fa-litecoin-sign text-2xl sm:text-3xl mb-2 text-blue-400"></i>
-                            <h4 class="font-bold text-white mb-2 text-sm sm:text-base" data-i18n="coin_ltc">Litecoin (LTC)</h4>
+                            <h3 class="font-bold text-white mb-2 text-sm sm:text-base" data-i18n="coin_ltc">Litecoin (LTC)</h3>
                             <div class="text-xs text-gray-400 truncate w-full px-2 mb-2 sm:mb-3" id="addr-ltc">
                                 ltc1q59szmjl3hdqjpjgdp0pn6u2n45ukkpgcw7q3c8
                             </div>
@@ -571,7 +654,7 @@
                         </div>
                         <div class="bg-gray-800 p-3 sm:p-4 rounded-lg flex flex-col items-center glow-border">
                             <i class="fa-brands fa-monero text-2xl sm:text-3xl mb-2 text-orange-500"></i>
-                            <h4 class="font-bold text-white mb-2 text-sm sm:text-base" data-i18n="coin_xmr">Monero (XMR)</h4>
+                            <h3 class="font-bold text-white mb-2 text-sm sm:text-base" data-i18n="coin_xmr">Monero (XMR)</h3>
                             <div class="text-xs text-gray-400 truncate w-full px-2 mb-2 sm:mb-3" id="addr-xmr">
                                 46Fskkbzo1DSYB8rVAanjNbCSdC6Vdas79DuYTbSsfJvZHELhJPJAmLfGFvypRyd5K957w5RYTjgzCFFkesNm7baP8hDmkr
                             </div>
@@ -581,7 +664,7 @@
                         </div>
                         <div class="bg-gray-800 p-3 sm:p-4 rounded-lg flex flex-col items-center glow-border">
                             <i class="fa-brands fa-solana text-2xl sm:text-3xl mb-2 text-purple-500"></i>
-                            <h4 class="font-bold text-white mb-2 text-sm sm:text-base" data-i18n="coin_sol">Solana (SOL)</h4>
+                            <h3 class="font-bold text-white mb-2 text-sm sm:text-base" data-i18n="coin_sol">Solana (SOL)</h3>
                             <div class="text-xs text-gray-400 truncate w-full px-2 mb-2 sm:mb-3" id="addr-sol">
                                 CXR6aQFEksTqZ7V4wXj1q35JMHTib35EbFRSu64Dd9Tk
                             </div>
@@ -845,18 +928,19 @@
         function toggleDropdown() {
             const menu = document.getElementById('lang-dropdown-menu');
             const button = document.getElementById('lang-dropdown-button');
-            const isHidden = menu.classList.contains('hidden');
-            if (isHidden) {
-                menu.classList.remove('hidden');
-                button.setAttribute('aria-expanded', 'true');
-            } else {
-                menu.classList.add('hidden');
+            const isOpen = menu.classList.contains('open');
+            
+            if (isOpen) {
+                menu.classList.remove('open');
                 button.setAttribute('aria-expanded', 'false');
+            } else {
+                menu.classList.add('open');
+                button.setAttribute('aria-expanded', 'true');
             }
         }
         function closeDropdown() {
             const menu = document.getElementById('lang-dropdown-menu');
-            menu.classList.add('hidden');
+            menu.classList.remove('open');
             document.getElementById('lang-dropdown-button').setAttribute('aria-expanded', 'false');
         }
         function setCookie(name, value, days) {
@@ -907,11 +991,13 @@
             const currentLangFlag = document.getElementById('current-lang-flag');
             currentLangFlag.src = FLAG_URLS[currentLanguage];
             currentLangFlag.alt = `Flag of ${LANGUAGE_NAMES[currentLanguage]}`;
-            document.getElementById('lang-en-option').disabled = currentLanguage === 'en';
-            document.getElementById('lang-tr-option').disabled = currentLanguage === 'tr';
-            document.getElementById('lang-fr-option').disabled = currentLanguage === 'fr';
-            document.getElementById('lang-ar-option').disabled = currentLanguage === 'ar';
-            document.getElementById('lang-ru-option').disabled = currentLanguage === 'ru';
+            
+            // Update active state in dropdown
+            document.querySelectorAll('.lang-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            document.getElementById(`lang-${currentLanguage}-option`).classList.add('active');
+            
             runTitleAnimation();
         }
         const originalButtonTexts = {};
