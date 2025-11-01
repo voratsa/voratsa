@@ -105,10 +105,6 @@
         @keyframes blink {
             50% { opacity: 0; }
         }
-        .age-cursor {
-            animation: blink 0.75s step-end infinite;
-            font-weight: bold;
-        }
         .hover-reveal-container {
             position: relative;
         }
@@ -151,24 +147,6 @@
             transform: scale(1.05);
             border-color: var(--accent-color);
             box-shadow: 0 0 15px rgba(56, 161, 105, 0.3);
-        }
-        .language-flag {
-            width: 80px;
-            height: 60px;
-            border-radius: 2px;
-            margin-right: 8px;
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease-in-out;
-        }
-        .language-flags-container {
-            opacity: 0;
-            max-height: 0;
-            transition: all 0.4s ease-in-out;
-            overflow: hidden;
-        }
-        .hover-reveal-container:hover .language-flags-container {
-            opacity: 1;
-            max-height: 100px;
         }
         .project-card {
             transition: all 0.4s ease;
@@ -271,10 +249,6 @@
         }
         .skip-link:focus {
             top: 0;
-        }
-        .loading {
-            opacity: 0.7;
-            pointer-events: none;
         }
         .hover-indicator {
             position: absolute;
@@ -434,9 +408,6 @@
                         <a href="#skills" class="inline-block px-6 sm:px-8 py-2 sm:py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition duration-300 transform hover:scale-105 shadow-xl glow-border pulse text-sm sm:text-base focus-visible">
                             <i class="fas fa-arrow-down mr-2"></i> <span data-i18n="dive_in">Dive In</span>
                         </a>
-                        <a href="#projects" class="inline-block px-6 sm:px-8 py-2 sm:py-3 bg-transparent border-2 border-accent-color text-accent-color font-semibold rounded-full hover:bg-accent-color hover:text-white transition duration-300 transform hover:scale-105 glow-border text-sm sm:text-base focus-visible">
-                            <i class="fas fa-code mr-2"></i> <span data-i18n="view_work">View My Work</span>
-                        </a>
                     </div>
                 </div>
             </section>
@@ -455,6 +426,8 @@
                                 <span class="flex items-center bg-indigo-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fab fa-react mr-1"></i> React</span>
                                 <span class="flex items-center bg-indigo-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fab fa-python mr-1"></i> Flask</span>
                                 <span class="flex items-center bg-indigo-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fab fa-node-js mr-1"></i> Express</span>
+                                <span class="flex items-center bg-indigo-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fas fa-database mr-1"></i> Redis</span>
+                                <span class="flex items-center bg-indigo-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fas fa-server mr-1"></i> Vercel</span>
                             </div>
                         </div>
                         <div class="hover-indicator">HOVER ME!</div>
@@ -463,32 +436,25 @@
                         <div class="skills-card-content">
                             <h4 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 accent-text"><i class="fab fa-discord mr-2"></i> <span data-i18n="discord_dev_header">Discord Bot Development</span></h4>
                             <div class="flex flex-wrap gap-1 sm:gap-2 text-white reveal-content justify-center">
-                                <span class="bg-purple-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">Discord.py</span>
-                                <span class="bg-purple-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">Discord.js</span>
-                                <span class="bg-purple-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">Commands</span>
-                                <span class="bg-purple-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">API Integration</span>
-                                <span class="bg-purple-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">Database</span>
-                                <span class="bg-purple-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">Webhooks</span>
+                                <span class="flex items-center bg-purple-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fab fa-python mr-1"></i> Discord.py</span>
+                                <span class="flex items-center bg-purple-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fab fa-js mr-1"></i> Discord.js</span>
+                                <span class="flex items-center bg-purple-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fas fa-terminal mr-1"></i> Commands</span>
+                                <span class="flex items-center bg-purple-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fas fa-plug mr-1"></i> API Integration</span>
+                                <span class="flex items-center bg-purple-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fas fa-database mr-1"></i> Database</span>
+                                <span class="flex items-center bg-purple-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fas fa-link mr-1"></i> Webhooks</span>
                             </div>
                         </div>
                         <div class="hover-indicator">HOVER ME!</div>
                     </div>
                     <div class="card p-4 sm:p-6 hover-reveal-container cursor-pointer transition duration-300 fade-in h-fit glow-border relative">
                         <div class="skills-card-content">
-                            <h4 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 accent-text"><i class="fas fa-language mr-2"></i> <span data-i18n="languages_header">Languages</span></h4>
-                            <div class="language-flags-container flex gap-4 sm:gap-8 text-white items-center justify-center mt-3 sm:mt-4">
-                                <div class="relative group">
-                                    <img src="https://www.worldometers.info/img/flags/small/tn_rs-flag.gif" alt="Russian Flag" class="language-flag w-12 sm:w-16 h-9 sm:h-12 transition-transform duration-200 group-hover:scale-110">
-                                    <div class="absolute -bottom-8 sm:-bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none z-10">
-                                        Native
-                                    </div>
-                                </div>
-                                <div class="relative group">
-                                    <img src="https://www.worldometers.info/img/flags/small/tn_us-flag.gif" alt="English Flag" class="language-flag w-12 sm:w-16 h-9 sm:h-12 transition-transform duration-200 group-hover:scale-110">
-                                    <div class="absolute -bottom-8 sm:-bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none z-10">
-                                        C1
-                                    </div>
-                                </div>
+                            <h4 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 accent-text"><i class="fas fa-code mr-2"></i> <span data-i18n="data_formats_header">Data Formats & Tools</span></h4>
+                            <div class="flex flex-wrap gap-1 sm:gap-2 text-white reveal-content justify-center">
+                                <span class="flex items-center bg-green-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fas fa-code mr-1"></i> JSON</span>
+                                <span class="flex items-center bg-green-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fas fa-file-code mr-1"></i> YAML</span>
+                                <span class="flex items-center bg-green-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fas fa-table mr-1"></i> CSV</span>
+                                <span class="flex items-center bg-green-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fas fa-database mr-1"></i> Redis</span>
+                                <span class="flex items-center bg-green-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fas fa-server mr-1"></i> Vercel</span>
                             </div>
                         </div>
                         <div class="hover-indicator">HOVER ME!</div>
@@ -511,6 +477,7 @@
                             <span class="bg-indigo-600 px-2 py-1 rounded text-xs font-medium">Flask</span>
                             <span class="bg-indigo-600 px-2 py-1 rounded text-xs font-medium">Groq API</span>
                             <span class="bg-indigo-600 px-2 py-1 rounded text-xs font-medium">Redis</span>
+                            <span class="bg-indigo-600 px-2 py-1 rounded text-xs font-medium">JSON</span>
                         </div>
                         <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
                             <a href="https://github.com/voratsa/elarus" target="_blank" class="flex-1 bg-accent-color text-white text-center py-2 rounded-lg hover:bg-green-600 transition duration-200 glow-border text-sm focus-visible">
@@ -534,6 +501,7 @@
                             <span class="bg-indigo-600 px-2 py-1 rounded text-xs font-medium">CSS3</span>
                             <span class="bg-indigo-600 px-2 py-1 rounded text-xs font-medium">JavaScript</span>
                             <span class="bg-indigo-600 px-2 py-1 rounded text-xs font-medium">Tailwind</span>
+                            <span class="bg-indigo-600 px-2 py-1 rounded text-xs font-medium">Vercel</span>
                         </div>
                         <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
                             <a href="https://github.com/voratsa/voratsa" target="_blank" class="flex-1 bg-accent-color text-white text-center py-2 rounded-lg hover:bg-green-600 transition duration-200 glow-border text-sm focus-visible">
@@ -651,62 +619,6 @@
     </div>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        particlesJS('particles-js', {
-            particles: {
-                number: { value: 60, density: { enable: true, value_area: 800 } },
-                color: { value: "#38a169" },
-                shape: { type: "circle" },
-                opacity: { value: 0.5, random: true },
-                size: { value: 3, random: true },
-                line_linked: {
-                    enable: true,
-                    distance: 150,
-                    color: "#38a169",
-                    opacity: 0.2,
-                    width: 1
-                },
-                move: {
-                    enable: true,
-                    speed: 2,
-                    direction: "none",
-                    random: true,
-                    straight: false,
-                    out_mode: "out",
-                    bounce: false
-                }
-            },
-            interactivity: {
-                detect_on: "canvas",
-                events: {
-                    onhover: { enable: true, mode: ["grab", "connect"] },
-                    onclick: { enable: true, mode: "push" },
-                    resize: true
-                },
-                modes: {
-                    grab: {
-                        distance: 140,
-                        line_linked: { opacity: 0.5 }
-                    },
-                    connect: {
-                        distance: 180,
-                        line_linked: {
-                            opacity: 0.35,
-                            color: "#38a169",
-                            width: 1
-                        },
-                        links: {
-                            enable: true,
-                            distance: 180,
-                            color: "#38a169",
-                            opacity: 0.35,
-                            width: 1
-                        }
-                    },
-                    push: { particles_nb: 4 }
-                }
-            },
-            retina_detect: true
-        });
         const FLAG_URLS = {
             en: 'https://www.worldometers.info/img/flags/small/tn_us-flag.gif',
             tr: 'https://www.worldometers.info/img/flags/small/tn_tu-flag.gif',
@@ -734,7 +646,6 @@
                 'greeting_main': "Hello, I'm <span class='accent-text glow'>voratsa</span>.",
                 'greeting_secondary': "A developer specializing in building modern and robust <b class='gradient-text'>Web Applications</b>.",
                 'dive_in': "Dive In",
-                'view_work': "View My Work",
                 'nav_home': "Home",
                 'nav_skills': "Skills",
                 'nav_projects': "Projects",
@@ -748,7 +659,7 @@
                 'license_mit': "Licensed under MIT.",
                 'web_dev_header': "Web Development",
                 'discord_dev_header': "Discord Bot Development",
-                'languages_header': "Languages",
+                'data_formats_header': "Data Formats & Tools",
                 'donations_desc_crypto': "Crypto donations are a highly appreciated way to support my open-source development.",
                 'copy_address': "Copy Address",
                 'copied_text': "Copied!",
@@ -763,7 +674,6 @@
                 'greeting_main': "Merhaba, ben <span class='accent-text glow'>voratsa</span>.",
                 'greeting_secondary': "Modern ve sağlam <b class='gradient-text'>Web Uygulamaları</b> oluşturmada uzmanlaşmış bir geliştirici.",
                 'dive_in': "Başlayalım",
-                'view_work': "Çalışmalarımı Gör",
                 'nav_home': "Ana Sayfa",
                 'nav_skills': "Yetenekler",
                 'nav_projects': "Projeler",
@@ -777,7 +687,7 @@
                 'license_mit': "MIT lisansı altında lisanslanmıştır.",
                 'web_dev_header': "Web Geliştirme",
                 'discord_dev_header': "Discord Bot Geliştirme",
-                'languages_header': "Diller",
+                'data_formats_header': "Veri Formatları & Araçlar",
                 'donations_desc_crypto': "Kripto bağışları, açık kaynak geliştirmemi desteklemenin çok takdir edilen bir yoludur.",
                 'copy_address': "Adresi Kopyala",
                 'copied_text': "Kopyalandı!",
@@ -792,7 +702,6 @@
                 'greeting_main': "Bonjour, je suis <span class='accent-text glow'>voratsa</span>.",
                 'greeting_secondary': "Un développeur spécialisé dans la création d'<b class='gradient-text'>Applications Web</b> modernes et robustes.",
                 'dive_in': "Plongez",
-                'view_work': "Voir mon travail",
                 'nav_home': "Accueil",
                 'nav_skills': "Compétences",
                 'nav_projects': "Projets",
@@ -806,7 +715,7 @@
                 'license_mit': "Sous licence MIT.",
                 'web_dev_header': "Développement Web",
                 'discord_dev_header': "Développement de Bots Discord",
-                'languages_header': "Langues",
+                'data_formats_header': "Formats de Données & Outils",
                 'donations_desc_crypto': "Les dons en crypto-monnaies sont très appréciés pour soutenir mon développement open-source.",
                 'copy_address': "Copier l'adresse",
                 'copied_text': "Copié!",
@@ -821,7 +730,6 @@
                 'greeting_main': "مرحباً، أنا <span class='accent-text glow'>فوراتسا</span>.",
                 'greeting_secondary': "مطور متخصص في بناء <b class='gradient-text'>تطبيقات الويب</b> الحديثة والقوية.",
                 'dive_in': "ابدأ",
-                'view_work': "مشاريعي",
                 'nav_home': "الرئيسية",
                 'nav_skills': "المهارات",
                 'nav_projects': "المشاريع",
@@ -835,7 +743,7 @@
                 'license_mit': "مرخص بموجب MIT.",
                 'web_dev_header': "تطوير الويب",
                 'discord_dev_header': "تطوير بوتات ديسكورد",
-                'languages_header': "اللغات",
+                'data_formats_header': "تنسيقات البيانات والأدوات",
                 'donations_desc_crypto': "تبرعات العملات المشفرة هي طريقة موضع تقدير كبير لدعم تطويري مفتوح المصدر.",
                 'copy_address': "نسخ العنوان",
                 'copied_text': "تم النسخ!",
@@ -850,7 +758,6 @@
                 'greeting_main': "Привет, я <span class='accent-text glow'>вораца</span>.",
                 'greeting_secondary': "Разработчик, специализирующийся на создании современных и надежных <b class='gradient-text'>Веб-приложений</b>.",
                 'dive_in': "Начать",
-                'view_work': "Мои работы",
                 'nav_home': "Главная",
                 'nav_skills': "Навыки",
                 'nav_projects': "Проекты",
@@ -864,7 +771,7 @@
                 'license_mit': "Лицензировано под MIT.",
                 'web_dev_header': "Веб-разработка",
                 'discord_dev_header': "Разработка Discord-ботов",
-                'languages_header': "Языки",
+                'data_formats_header': "Форматы данных и инструменты",
                 'donations_desc_crypto': "Криптовалютные пожертвования — это очень ценный способ поддержать мою разработку с открытым исходным кодом.",
                 'copy_address': "Копировать адрес",
                 'copied_text': "Скопировано!",
@@ -876,9 +783,7 @@
             }
         };
         let currentLanguage = 'en';
-        const typewriterWords = ["Web Development", "Full-Stack", "HTML5", "CSS3", "Tailwind", "JavaScript ES6+", "Python", "Flask", "Node.js", "Express", "React", "Vercel", "Redis", "Discord Bots", "Discord.js", "Discord.py", "API Development"];
-        let currentWordIndex = 0;
-        let typewriterInterval;
+        const typewriterWords = ["Web Development", "Full-Stack", "HTML5", "CSS3", "Tailwind", "JavaScript ES6+", "Python", "Flask", "Node.js", "Express", "React", "Vercel", "Redis", "Discord Bots", "Discord.js", "Discord.py", "API Development", "JSON", "YAML", "CSV"];
         function runTitleAnimation() {
             const sequence = currentLanguage === 'ru' ? RU_TITLE_SEQUENCE : 
                              currentLanguage === 'ar' ? AR_TITLE_SEQUENCE : 
@@ -1183,14 +1088,6 @@
                     lazyParticlesObserver.observe(particlesElement);
                 }
             }
-            document.querySelectorAll('a[target="_blank"]').forEach(link => {
-                link.addEventListener('click', function() {
-                    this.classList.add('loading');
-                    setTimeout(() => {
-                        this.classList.remove('loading');
-                    }, 1000);
-                });
-            });
             updateActiveNav('home');
             startTypewriter();
         });
