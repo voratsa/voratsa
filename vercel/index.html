@@ -538,7 +538,7 @@
                     <p class="text-lg sm:text-xl mb-6 sm:mb-8 text-gray-300" data-i18n="donations_desc_crypto">
                         Crypto donations are a highly appreciated way to support my open-source development
                     </p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
                         <div class="bg-gray-800 p-3 sm:p-4 rounded-lg flex flex-col items-center glow-border">
                             <i class="fab fa-bitcoin text-2xl sm:text-3xl mb-2 text-yellow-500"></i>
                             <h4 class="font-bold text-white mb-2 text-sm sm:text-base" data-i18n="coin_btc">Bitcoin (BTC)</h4>
@@ -576,6 +576,16 @@
                                 46Fskkbzo1DSYB8rVAanjNbCSdC6Vdas79DuYTbSsfJvZHELhJPJAmLfGFvypRyd5K957w5RYTjgzCFFkesNm7baP8hDmkr
                             </div>
                             <button onclick="copyAddress('xmr')" id="btn-xmr" class="w-full py-2 bg-orange-600 hover:bg-orange-700 rounded-lg text-xs sm:text-sm transition duration-150 text-white font-semibold glow-border focus-visible">
+                                <i class="fas fa-copy mr-2"></i> <span data-i18n="copy_address">Copy Address</span>
+                            </button>
+                        </div>
+                        <div class="bg-gray-800 p-3 sm:p-4 rounded-lg flex flex-col items-center glow-border">
+                            <i class="fa-brands fa-solana text-2xl sm:text-3xl mb-2 text-purple-500"></i>
+                            <h4 class="font-bold text-white mb-2 text-sm sm:text-base" data-i18n="coin_sol">Solana (SOL)</h4>
+                            <div class="text-xs text-gray-400 truncate w-full px-2 mb-2 sm:mb-3" id="addr-sol">
+                                CXR6aQFEksTqZ7V4wXj1q35JMHTib35EbFRSu64Dd9Tk
+                            </div>
+                            <button onclick="copyAddress('sol')" id="btn-sol" class="w-full py-2 bg-purple-600 hover:bg-purple-700 rounded-lg text-xs sm:text-sm transition duration-150 text-white font-semibold glow-border focus-visible">
                                 <i class="fas fa-copy mr-2"></i> <span data-i18n="copy_address">Copy Address</span>
                             </button>
                         </div>
@@ -667,6 +677,7 @@
                 'coin_eth': "Ethereum (ETH)",
                 'coin_ltc': "Litecoin (LTC)",
                 'coin_xmr': "Monero (XMR)",
+                'coin_sol': "Solana (SOL)",
                 'contact_desc': "I'm always open to connecting and discussing new projects or ideas. You can find me on these platforms:",
             },
             tr: {
@@ -695,6 +706,7 @@
                 'coin_eth': "Ethereum (ETH)",
                 'coin_ltc': "Litecoin (LTC)",
                 'coin_xmr': "Monero (XMR)",
+                'coin_sol': "Solana (SOL)",
                 'contact_desc': "Yeni projeler veya fikirler hakkında bağlantı kurmaya ve tartışmaya her zaman açığım. Beni bu platformlarda bulabilirsiniz:",
             },
             fr: {
@@ -723,6 +735,7 @@
                 'coin_eth': "Ethereum (ETH)",
                 'coin_ltc': "Litecoin (LTC)",
                 'coin_xmr': "Monero (XMR)",
+                'coin_sol': "Solana (SOL)",
                 'contact_desc': "Je suis toujours ouvert à la connexion et à la discussion de nouveaux projets ou idées. Vous pouvez me trouver sur ces plateformes:",
             },
             ar: {
@@ -751,6 +764,7 @@
                 'coin_eth': "إيثيريوم (ETH)",
                 'coin_ltc': "لايتكوين (LTC)",
                 'coin_xmr': "مونيرو (XMR)",
+                'coin_sol': "سولانا (SOL)",
                 'contact_desc': "أنا دائمًا منفتح على التواصل ومناقشة المشاريع أو الأفكار الجديدة. يمكنك العثور عليّ على هذه المنصات:",
             },
             ru: {
@@ -779,6 +793,7 @@
                 'coin_eth': "Эфириум (ETH)",
                 'coin_ltc': "Лайткойн (LTC)",
                 'coin_xmr': "Монеро (XMR)",
+                'coin_sol': "Солана (SOL)",
                 'contact_desc': "Я всегда готов к общению и обсуждению новых проектов или идей. Меня можно найти на этих платформах:",
             }
         };
