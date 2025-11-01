@@ -8,7 +8,7 @@ def serve_index():
 
 @app.route('/googlea00fdca30afc15b7.html')
 def serveea():
-    return send_file('googlea00fdca30afc15b7.html')
+    return send_file('g/googlea00fdca30afc15b7.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
