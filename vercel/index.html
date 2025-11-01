@@ -276,6 +276,29 @@
             opacity: 0.7;
             pointer-events: none;
         }
+        .hover-indicator {
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-color);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .hover-reveal-container:hover .hover-indicator {
+            opacity: 0;
+        }
+        .skills-card-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
         @media (max-width: 768px) {
             section {
                 padding-top: 5rem;
@@ -333,6 +356,18 @@
                 <img src="https://www.worldometers.info/img/flags/small/tn_us-flag.gif" alt="US Flag" class="flag-img !w-20 !h-14 mb-2">
                 <span class="text-white font-medium">English</span>
             </button>
+            <button onclick="selectLanguage('tr')" class="overlay-flag-btn transition duration-200 transform hover:scale-105 flex flex-col items-center pulse" title="Türkçe">
+                <img src="https://www.worldometers.info/img/flags/small/tn_tu-flag.gif" alt="Turkish Flag" class="flag-img !w-20 !h-14 mb-2">
+                <span class="text-white font-medium">Türkçe</span>
+            </button>
+            <button onclick="selectLanguage('fr')" class="overlay-flag-btn transition duration-200 transform hover:scale-105 flex flex-col items-center pulse" title="Français">
+                <img src="https://www.worldometers.info/img/flags/small/tn_fr-flag.gif" alt="French Flag" class="flag-img !w-20 !h-14 mb-2">
+                <span class="text-white font-medium">Français</span>
+            </button>
+            <button onclick="selectLanguage('ar')" class="overlay-flag-btn transition duration-200 transform hover:scale-105 flex flex-col items-center pulse" title="العربية">
+                <img src="https://www.worldometers.info/img/flags/small/tn_sa-flag.gif" alt="Saudi Arabia Flag" class="flag-img !w-20 !h-14 mb-2">
+                <span class="text-white font-medium">العربية</span>
+            </button>
             <button onclick="selectLanguage('ru')" class="overlay-flag-btn transition duration-200 transform hover:scale-105 flex flex-col items-center pulse" title="Русский">
                 <img src="https://www.worldometers.info/img/flags/small/tn_rs-flag.gif" alt="Russian Flag" class="flag-img !w-20 !h-14 mb-2">
                 <span class="text-white font-medium">Русский</span>
@@ -348,7 +383,7 @@
                 <div class="flex items-center space-x-2 sm:space-x-4">
                     <nav class="flex flex-wrap justify-center space-x-2 sm:space-x-4">
                         <a href="#home" class="section-nav-link text-sm sm:text-lg font-medium text-gray-300 hover:text-accent-color transition duration-200 nav-active" data-i18n="nav_home">Home</a>
-                        <a href="#about" class="section-nav-link text-sm sm:text-lg font-medium text-gray-300 hover:text-accent-color transition duration-200" data-i18n="nav_about">About</a>
+                        <a href="#skills" class="section-nav-link text-sm sm:text-lg font-medium text-gray-300 hover:text-accent-color transition duration-200" data-i18n="nav_skills">Skills</a>
                         <a href="#projects" class="section-nav-link text-sm sm:text-lg font-medium text-gray-300 hover:text-accent-color transition duration-200" data-i18n="nav_projects">Projects</a>
                         <a href="#donations" class="section-nav-link text-sm sm:text-lg font-medium text-gray-300 hover:text-accent-color transition duration-200" data-i18n="nav_donations">Support</a>
                         <a href="#contact" class="section-nav-link text-sm sm:text-lg font-medium text-gray-300 hover:text-accent-color transition duration-200" data-i18n="nav_contact">Contact</a>
@@ -364,6 +399,15 @@
                             <div class="py-1" role="none">
                                 <button id="lang-en-option" onclick="selectLanguage('en', true)" class="w-full text-left flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white transition duration-150 focus-visible" role="menuitem" tabindex="-1">
                                     <img src="https://www.worldometers.info/img/flags/small/tn_us-flag.gif" alt="US Flag" class="flag-img mr-3"> English
+                                </button>
+                                <button id="lang-tr-option" onclick="selectLanguage('tr', true)" class="w-full text-left flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white transition duration-150 focus-visible" role="menuitem" tabindex="-1">
+                                    <img src="https://www.worldometers.info/img/flags/small/tn_tu-flag.gif" alt="Turkish Flag" class="flag-img mr-3"> Türkçe
+                                </button>
+                                <button id="lang-fr-option" onclick="selectLanguage('fr', true)" class="w-full text-left flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white transition duration-150 focus-visible" role="menuitem" tabindex="-1">
+                                    <img src="https://www.worldometers.info/img/flags/small/tn_fr-flag.gif" alt="French Flag" class="flag-img mr-3"> Français
+                                </button>
+                                <button id="lang-ar-option" onclick="selectLanguage('ar', true)" class="w-full text-left flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white transition duration-150 focus-visible" role="menuitem" tabindex="-1">
+                                    <img src="https://www.worldometers.info/img/flags/small/tn_sa-flag.gif" alt="Saudi Arabia Flag" class="flag-img mr-3"> العربية
                                 </button>
                                 <button id="lang-ru-option" onclick="selectLanguage('ru', true)" class="w-full text-left flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white transition duration-150 focus-visible" role="menuitem" tabindex="-1">
                                     <img src="https://www.worldometers.info/img/flags/small/tn_rs-flag.gif" alt="Russian Flag" class="flag-img mr-3"> Русский
@@ -387,7 +431,7 @@
                         <span id="typewriter-text"></span><span class="typewriter-cursor"></span>
                     </div>
                     <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                        <a href="#about" class="inline-block px-6 sm:px-8 py-2 sm:py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition duration-300 transform hover:scale-105 shadow-xl glow-border pulse text-sm sm:text-base focus-visible">
+                        <a href="#skills" class="inline-block px-6 sm:px-8 py-2 sm:py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition duration-300 transform hover:scale-105 shadow-xl glow-border pulse text-sm sm:text-base focus-visible">
                             <i class="fas fa-arrow-down mr-2"></i> <span data-i18n="dive_in">Dive In</span>
                         </a>
                         <a href="#projects" class="inline-block px-6 sm:px-8 py-2 sm:py-3 bg-transparent border-2 border-accent-color text-accent-color font-semibold rounded-full hover:bg-accent-color hover:text-white transition duration-300 transform hover:scale-105 glow-border text-sm sm:text-base focus-visible">
@@ -396,26 +440,15 @@
                     </div>
                 </div>
             </section>
-            <section id="about" class="flex-col items-center text-center">
+            <section id="skills" class="flex-col items-center text-center">
                 <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 sm:mb-10 border-b-2 border-accent-color pb-2 w-full max-w-lg mx-auto glow">
-                    <i class="fas fa-user-circle mr-3 accent-text"></i> <span data-i18n="about_title">About Me</span>
+                    <i class="fas fa-brain mr-3 accent-text"></i> <span data-i18n="skills_title">Skills & Expertise</span>
                 </h2>
-                <div class="w-full max-w-md mx-auto card p-4 sm:p-6 md:p-8 mb-12 sm:mb-16 text-left fade-in glow-border">
-                    <h3 class="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 accent-text"><i class="fas fa-calendar-alt mr-2"></i> <span data-i18n="key_details_header">Key Details</span></h3>
-                    <div class="space-y-2 sm:space-y-3">
-                        <p><b data-i18n="detail_name">Name:</b> <span class="text-white">voratsa</span></p>
-                        <p><b data-i18n="detail_age">Age:</b> <span id="age-display" class="text-white"></span></p>
-                        <p><b data-i18n="detail_country">Country:</b> <span class="text-white" data-i18n="country_value">Russia</span></p>
-                    </div>
-                </div>
-                <div class="w-full">
-                    <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 sm:mb-10 border-b-2 border-accent-color pb-2 w-full max-w-lg mx-auto glow">
-                        <i class="fas fa-brain mr-3 accent-text"></i> <span data-i18n="skills_title">Skills & Expertise</span>
-                    </h3>
-                    <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
-                        <div class="card p-4 sm:p-6 text-left hover-reveal-container cursor-pointer transition duration-300 fade-in h-fit glow-border">
+                <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
+                    <div class="card p-4 sm:p-6 hover-reveal-container cursor-pointer transition duration-300 fade-in h-fit glow-border relative">
+                        <div class="skills-card-content">
                             <h4 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 accent-text"><i class="fas fa-globe mr-2"></i> <span data-i18n="web_dev_header">Web Development</span></h4>
-                            <div class="flex flex-wrap gap-1 sm:gap-2 text-white reveal-content">
+                            <div class="flex flex-wrap gap-1 sm:gap-2 text-white reveal-content justify-center">
                                 <span class="flex items-center bg-indigo-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fab fa-html5 mr-1"></i> HTML5</span>
                                 <span class="flex items-center bg-indigo-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fab fa-css3-alt mr-1"></i> CSS3</span>
                                 <span class="flex items-center bg-indigo-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fab fa-js mr-1"></i> JavaScript</span>
@@ -424,9 +457,12 @@
                                 <span class="flex items-center bg-indigo-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"><i class="fab fa-node-js mr-1"></i> Express</span>
                             </div>
                         </div>
-                        <div class="card p-4 sm:p-6 text-left hover-reveal-container cursor-pointer transition duration-300 fade-in h-fit glow-border">
+                        <div class="hover-indicator">HOVER ME!</div>
+                    </div>
+                    <div class="card p-4 sm:p-6 hover-reveal-container cursor-pointer transition duration-300 fade-in h-fit glow-border relative">
+                        <div class="skills-card-content">
                             <h4 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 accent-text"><i class="fab fa-discord mr-2"></i> <span data-i18n="discord_dev_header">Discord Bot Development</span></h4>
-                            <div class="flex flex-wrap gap-1 sm:gap-2 text-white reveal-content">
+                            <div class="flex flex-wrap gap-1 sm:gap-2 text-white reveal-content justify-center">
                                 <span class="bg-purple-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">Discord.py</span>
                                 <span class="bg-purple-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">Discord.js</span>
                                 <span class="bg-purple-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">Commands</span>
@@ -435,7 +471,10 @@
                                 <span class="bg-purple-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">Webhooks</span>
                             </div>
                         </div>
-                        <div class="card p-4 sm:p-6 text-left hover-reveal-container cursor-pointer transition duration-300 fade-in h-fit glow-border">
+                        <div class="hover-indicator">HOVER ME!</div>
+                    </div>
+                    <div class="card p-4 sm:p-6 hover-reveal-container cursor-pointer transition duration-300 fade-in h-fit glow-border relative">
+                        <div class="skills-card-content">
                             <h4 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 accent-text"><i class="fas fa-language mr-2"></i> <span data-i18n="languages_header">Languages</span></h4>
                             <div class="language-flags-container flex gap-4 sm:gap-8 text-white items-center justify-center mt-3 sm:mt-4">
                                 <div class="relative group">
@@ -452,6 +491,7 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="hover-indicator">HOVER ME!</div>
                     </div>
                 </div>
             </section>
@@ -669,13 +709,22 @@
         });
         const FLAG_URLS = {
             en: 'https://www.worldometers.info/img/flags/small/tn_us-flag.gif',
+            tr: 'https://www.worldometers.info/img/flags/small/tn_tu-flag.gif',
+            fr: 'https://www.worldometers.info/img/flags/small/tn_fr-flag.gif',
+            ar: 'https://www.worldometers.info/img/flags/small/tn_sa-flag.gif',
             ru: 'https://www.worldometers.info/img/flags/small/tn_rs-flag.gif'
         };
         const LANGUAGE_NAMES = {
             en: 'English',
+            tr: 'Türkçe',
+            fr: 'Français',
+            ar: 'العربية',
             ru: 'Русский'
         };
         const EN_TITLE_SEQUENCE = ["voratsa_", "vorats_", "vorat_", "vora_", "vor_", "vo_", "v_", "vo_", "vor_", "vora_", "vorat_", "vorats_", "voratsa_"];
+        const TR_TITLE_SEQUENCE = ["voratsa_", "vorats_", "vorat_", "vora_", "vor_", "vo_", "v_", "vo_", "vor_", "vora_", "vorat_", "vorats_", "voratsa_"];
+        const FR_TITLE_SEQUENCE = ["voratsa_", "vorats_", "vorat_", "vora_", "vor_", "vo_", "v_", "vo_", "vor_", "vora_", "vorat_", "vorats_", "voratsa_"];
+        const AR_TITLE_SEQUENCE = ["فوراتسا_", "فوراتس_", "فورات_", "فورا_", "فور_", "فو_", "ف_", "فو_", "فور_", "فورا_", "فورات_", "فوراتس_", "فوراتسا_"];
         const RU_TITLE_SEQUENCE = ["вораца_", "ворац_", "вора_", "вор_", "во_", "в_", "во_", "вор_", "вора_", "ворац_", "вораца_"];
         let titleSequenceIndex = 0;
         let titleIntervalId = null;
@@ -687,22 +736,16 @@
                 'dive_in': "Dive In",
                 'view_work': "View My Work",
                 'nav_home': "Home",
-                'nav_about': "About",
+                'nav_skills': "Skills",
                 'nav_projects': "Projects",
                 'nav_donations': "Support",
                 'nav_contact': "Contact",
-                'about_title': "About Me",
                 'skills_title': "Skills & Expertise",
                 'projects_title': "My Projects",
                 'donations_title': "Support My Work",
                 'contact_title': "Contact",
                 'open_source_text': "This site is Open Source!",
                 'license_mit': "Licensed under MIT.",
-                'key_details_header': "Key Details",
-                'detail_name': "Name:",
-                'detail_age': "Age:",
-                'detail_country': "Country:",
-                'country_value': "Russia",
                 'web_dev_header': "Web Development",
                 'discord_dev_header': "Discord Bot Development",
                 'languages_header': "Languages",
@@ -715,6 +758,93 @@
                 'coin_xmr': "Monero (XMR)",
                 'contact_desc': "I'm always open to connecting and discussing new projects or ideas. You can find me on these platforms:",
             },
+            tr: {
+                'brand_name': "voratsa",
+                'greeting_main': "Merhaba, ben <span class='accent-text glow'>voratsa</span>.",
+                'greeting_secondary': "Modern ve sağlam <b class='gradient-text'>Web Uygulamaları</b> oluşturmada uzmanlaşmış bir geliştirici.",
+                'dive_in': "Başlayalım",
+                'view_work': "Çalışmalarımı Gör",
+                'nav_home': "Ana Sayfa",
+                'nav_skills': "Yetenekler",
+                'nav_projects': "Projeler",
+                'nav_donations': "Destek",
+                'nav_contact': "İletişim",
+                'skills_title': "Yetenekler ve Uzmanlık",
+                'projects_title': "Projelerim",
+                'donations_title': "Çalışmalarımı Destekleyin",
+                'contact_title': "İletişim",
+                'open_source_text': "Bu site Açık Kaynak!",
+                'license_mit': "MIT lisansı altında lisanslanmıştır.",
+                'web_dev_header': "Web Geliştirme",
+                'discord_dev_header': "Discord Bot Geliştirme",
+                'languages_header': "Diller",
+                'donations_desc_crypto': "Kripto bağışları, açık kaynak geliştirmemi desteklemenin çok takdir edilen bir yoludur.",
+                'copy_address': "Adresi Kopyala",
+                'copied_text': "Kopyalandı!",
+                'coin_btc': "Bitcoin (BTC)",
+                'coin_eth': "Ethereum (ETH)",
+                'coin_ltc': "Litecoin (LTC)",
+                'coin_xmr': "Monero (XMR)",
+                'contact_desc': "Yeni projeler veya fikirler hakkında bağlantı kurmaya ve tartışmaya her zaman açığım. Beni bu platformlarda bulabilirsiniz:",
+            },
+            fr: {
+                'brand_name': "voratsa",
+                'greeting_main': "Bonjour, je suis <span class='accent-text glow'>voratsa</span>.",
+                'greeting_secondary': "Un développeur spécialisé dans la création d'<b class='gradient-text'>Applications Web</b> modernes et robustes.",
+                'dive_in': "Plongez",
+                'view_work': "Voir mon travail",
+                'nav_home': "Accueil",
+                'nav_skills': "Compétences",
+                'nav_projects': "Projets",
+                'nav_donations': "Soutien",
+                'nav_contact': "Contact",
+                'skills_title': "Compétences et Expertise",
+                'projects_title': "Mes Projets",
+                'donations_title': "Soutenez mon travail",
+                'contact_title': "Contact",
+                'open_source_text': "Ce site est Open Source!",
+                'license_mit': "Sous licence MIT.",
+                'web_dev_header': "Développement Web",
+                'discord_dev_header': "Développement de Bots Discord",
+                'languages_header': "Langues",
+                'donations_desc_crypto': "Les dons en crypto-monnaies sont très appréciés pour soutenir mon développement open-source.",
+                'copy_address': "Copier l'adresse",
+                'copied_text': "Copié!",
+                'coin_btc': "Bitcoin (BTC)",
+                'coin_eth': "Ethereum (ETH)",
+                'coin_ltc': "Litecoin (LTC)",
+                'coin_xmr': "Monero (XMR)",
+                'contact_desc': "Je suis toujours ouvert à la connexion et à la discussion de nouveaux projets ou idées. Vous pouvez me trouver sur ces plateformes:",
+            },
+            ar: {
+                'brand_name': "فوراتسا",
+                'greeting_main': "مرحباً، أنا <span class='accent-text glow'>فوراتسا</span>.",
+                'greeting_secondary': "مطور متخصص في بناء <b class='gradient-text'>تطبيقات الويب</b> الحديثة والقوية.",
+                'dive_in': "ابدأ",
+                'view_work': "مشاريعي",
+                'nav_home': "الرئيسية",
+                'nav_skills': "المهارات",
+                'nav_projects': "المشاريع",
+                'nav_donations': "الدعم",
+                'nav_contact': "تواصل معي",
+                'skills_title': "المهارات والخبرات",
+                'projects_title': "مشاريعي",
+                'donations_title': "ادعم عملي",
+                'contact_title': "تواصل معي",
+                'open_source_text': "هذا الموقع مفتوح المصدر!",
+                'license_mit': "مرخص بموجب MIT.",
+                'web_dev_header': "تطوير الويب",
+                'discord_dev_header': "تطوير بوتات ديسكورد",
+                'languages_header': "اللغات",
+                'donations_desc_crypto': "تبرعات العملات المشفرة هي طريقة موضع تقدير كبير لدعم تطويري مفتوح المصدر.",
+                'copy_address': "نسخ العنوان",
+                'copied_text': "تم النسخ!",
+                'coin_btc': "بيتكوين (BTC)",
+                'coin_eth': "إيثيريوم (ETH)",
+                'coin_ltc': "لايتكوين (LTC)",
+                'coin_xmr': "مونيرو (XMR)",
+                'contact_desc': "أنا دائمًا منفتح على التواصل ومناقشة المشاريع أو الأفكار الجديدة. يمكنك العثور عليّ على هذه المنصات:",
+            },
             ru: {
                 'brand_name': "вораца",
                 'greeting_main': "Привет, я <span class='accent-text glow'>вораца</span>.",
@@ -722,22 +852,16 @@
                 'dive_in': "Начать",
                 'view_work': "Мои работы",
                 'nav_home': "Главная",
-                'nav_about': "Обо мне",
+                'nav_skills': "Навыки",
                 'nav_projects': "Проекты",
                 'nav_donations': "Поддержка",
                 'nav_contact': "Контакты",
-                'about_title': "Обо мне",
                 'skills_title': "Навыки и опыт",
                 'projects_title': "Мои проекты",
                 'donations_title': "Поддержите мою работу",
                 'contact_title': "Контакты",
                 'open_source_text': "Этот сайт с открытым исходным кодом!",
                 'license_mit': "Лицензировано под MIT.",
-                'key_details_header': "Основные данные",
-                'detail_name': "Имя:",
-                'detail_age': "Возраст:",
-                'detail_country': "Страна:",
-                'country_value': "Россия",
                 'web_dev_header': "Веб-разработка",
                 'discord_dev_header': "Разработка Discord-ботов",
                 'languages_header': "Языки",
@@ -752,14 +876,14 @@
             }
         };
         let currentLanguage = 'en';
-        const birthDate = new Date('2011-10-11T00:00:00');
-        let ageDisplay; 
-        let ageIntervalId; 
         const typewriterWords = ["Web Development", "Full-Stack", "HTML5", "CSS3", "Tailwind", "JavaScript ES6+", "Python", "Flask", "Node.js", "Express", "React", "Vercel", "Redis", "Discord Bots", "Discord.js", "Discord.py", "API Development"];
         let currentWordIndex = 0;
         let typewriterInterval;
         function runTitleAnimation() {
-            const sequence = currentLanguage === 'ru' ? RU_TITLE_SEQUENCE : EN_TITLE_SEQUENCE;
+            const sequence = currentLanguage === 'ru' ? RU_TITLE_SEQUENCE : 
+                             currentLanguage === 'ar' ? AR_TITLE_SEQUENCE : 
+                             currentLanguage === 'fr' ? FR_TITLE_SEQUENCE :
+                             currentLanguage === 'tr' ? TR_TITLE_SEQUENCE : EN_TITLE_SEQUENCE;
             function animateTitle() {
                 document.title = sequence[titleSequenceIndex];
                 titleSequenceIndex = (titleSequenceIndex + 1) % sequence.length;
@@ -847,12 +971,6 @@
             document.getElementById('app-container').classList.remove('opacity-0');
             applyLanguage();
             runTitleAnimation();
-            if (!ageDisplay) {
-                ageDisplay = document.getElementById('age-display');
-                if (ageIntervalId) clearInterval(ageIntervalId); 
-                updateAge();
-                ageIntervalId = setInterval(updateAge, 1000); 
-            }
             if (shouldCloseDropdown) {
                 closeDropdown();
             }
@@ -869,28 +987,12 @@
             const currentLangFlag = document.getElementById('current-lang-flag');
             currentLangFlag.src = FLAG_URLS[currentLanguage];
             currentLangFlag.alt = `Flag of ${LANGUAGE_NAMES[currentLanguage]}`;
-            updateAge(true); 
             document.getElementById('lang-en-option').disabled = currentLanguage === 'en';
+            document.getElementById('lang-tr-option').disabled = currentLanguage === 'tr';
+            document.getElementById('lang-fr-option').disabled = currentLanguage === 'fr';
+            document.getElementById('lang-ar-option').disabled = currentLanguage === 'ar';
             document.getElementById('lang-ru-option').disabled = currentLanguage === 'ru';
             runTitleAnimation();
-        }
-        function updateAge() {
-            if (!ageDisplay) return;
-            const now = new Date();
-            const diffMs = now.getTime() - birthDate.getTime();
-            const years = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 365.25));
-            const months = Math.floor((diffMs % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * 30.44));
-            const days = Math.floor((diffMs % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
-            const yearText = currentLanguage === 'ru' ? (years === 1 ? 'год' : (years >= 2 && years <= 4 ? 'года' : 'лет')) : (years === 1 ? 'year' : 'years');
-            const monthText = currentLanguage === 'ru' ? (months === 1 ? 'месяц' : (months >= 2 && months <= 4 ? 'месяца' : 'месяцев')) : (months === 1 ? 'month' : 'months');
-            const dayText = currentLanguage === 'ru' ? (days === 1 ? 'день' : (days >= 2 && days <= 4 ? 'дня' : 'дней')) : (days === 1 ? 'day' : 'days');
-            const hourText = currentLanguage === 'ru' ? (hours === 1 ? 'час' : (hours >= 2 && hours <= 4 ? 'часа' : 'часов')) : (hours === 1 ? 'hour' : 'hours');
-            const minuteText = currentLanguage === 'ru' ? (minutes === 1 ? 'минута' : (minutes >= 2 && minutes <= 4 ? 'минуты' : 'минут')) : (minutes === 1 ? 'minute' : 'minutes');
-            const secondText = currentLanguage === 'ru' ? (seconds === 1 ? 'секунда' : (seconds >= 2 && seconds <= 4 ? 'секунды' : 'секунд')) : (seconds === 1 ? 'second' : 'seconds');
-            ageDisplay.textContent = `${years} ${yearText}, ${months} ${monthText}, ${days} ${dayText}, ${hours} ${hourText}, ${minutes} ${minuteText}, ${seconds} ${secondText}`;
         }
         const originalButtonTexts = {};
         function copyAddress(coinId) {
