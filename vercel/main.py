@@ -6,6 +6,14 @@ app = Flask(__name__)
 def serve_index():
     return send_file('index.html')
 
+@app.route('/logo.png')
+def serve_logo():
+    return send_file('logo.png')
+
+@app.route('/logo2.png')
+def serve_logo2():
+    return send_file('logo2.png')
+
 @app.route('/googlea00fdca30afc15b7.html')
 def serveea():
     return send_file('g/googlea00fdca30afc15b7.html')
