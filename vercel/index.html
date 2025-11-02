@@ -12,6 +12,7 @@
     <meta property="og:description" content="voratsa - A developer specializing in building modern and robust Web Applications.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://voratsa.vercel.app">
+    <link rel="icon" type="image/png" href="logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -283,8 +284,6 @@
             justify-content: center;
             text-align: center;
         }
-        
-        /* Fixed dropdown styles */
         .lang-dropdown-container {
             position: relative;
             display: inline-block;
@@ -341,7 +340,11 @@
             border-radius: 2px;
             object-fit: cover;
         }
-        
+        .logo-img {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 2rem;
+        }
         @media (max-width: 768px) {
             section {
                 padding-top: 5rem;
@@ -374,6 +377,9 @@
             .lang-dropdown-menu {
                 width: 160px;
             }
+            .logo-img {
+                max-width: 150px;
+            }
         }
         @media (max-width: 640px) {
             .grid-cols-3, .grid-cols-2 {
@@ -389,6 +395,9 @@
             .lang-dropdown-menu {
                 width: 150px;
             }
+            .logo-img {
+                max-width: 120px;
+            }
         }
     </style>
 </head>
@@ -398,7 +407,7 @@
     <div id="particles-js"></div>
     <div id="language-overlay" class="fixed inset-0 z-[100] bg-gray-900 flex flex-col items-center justify-center p-8">
         <div class="text-center mb-8">
-            <a href="#" class="text-4xl font-bold mb-2 accent-text glow floating">voratsa<span class="text-white">_</span></a>
+            <img src="logo2.png" alt="voratsa Logo" class="logo-img mx-auto floating">
         </div>
         <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
             <button onclick="selectLanguage('en')" class="overlay-flag-btn transition duration-200 transform hover:scale-105 flex flex-col items-center pulse" title="English">
@@ -436,8 +445,8 @@
     <div id="app-container" class="opacity-0 transition-opacity duration-500 w-full h-full">
         <nav class="fixed top-0 left-0 right-0 z-50 p-4 bg-gray-900 bg-opacity-95 shadow-lg border-b border-gray-700 backdrop-blur-sm">
             <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center">
-                <a href="#home" class="text-2xl font-bold accent-text transition duration-300 transform hover:scale-105 mb-3 sm:mb-0 glow">
-                    <span data-i18n="brand_name">voratsa</span><span class="text-white">_</span>
+                <a href="#home" class="flex items-center transition duration-300 transform hover:scale-105 mb-3 sm:mb-0">
+                    <img src="logo2.png" alt="voratsa Logo" class="h-10 w-auto">
                 </a>
                 <div class="flex items-center space-x-2 sm:space-x-4">
                     <nav class="flex flex-wrap justify-center space-x-2 sm:space-x-4">
@@ -735,7 +744,6 @@
         let titleIntervalId = null;
         const translations = {
             en: {
-                'brand_name': "voratsa",
                 'greeting_main': "Hello, I'm <span class='accent-text glow'>voratsa</span>.",
                 'greeting_secondary': "A developer specializing in building modern and robust <b class='gradient-text'>Web Applications</b>.",
                 'dive_in': "Dive In",
@@ -764,7 +772,6 @@
                 'contact_desc': "I'm always open to connecting and discussing new projects or ideas. You can find me on these platforms:",
             },
             tr: {
-                'brand_name': "voratsa",
                 'greeting_main': "Merhaba, ben <span class='accent-text glow'>voratsa</span>.",
                 'greeting_secondary': "Modern ve sağlam <b class='gradient-text'>Web Uygulamaları</b> oluşturmada uzmanlaşmış bir geliştirici.",
                 'dive_in': "Başlayalım",
@@ -793,7 +800,6 @@
                 'contact_desc': "Yeni projeler veya fikirler hakkında bağlantı kurmaya ve tartışmaya her zaman açığım. Beni bu platformlarda bulabilirsiniz:",
             },
             fr: {
-                'brand_name': "voratsa",
                 'greeting_main': "Bonjour, je suis <span class='accent-text glow'>voratsa</span>.",
                 'greeting_secondary': "Un développeur spécialisé dans la création d'<b class='gradient-text'>Applications Web</b> modernes et robustes.",
                 'dive_in': "Plongez",
@@ -822,7 +828,6 @@
                 'contact_desc': "Je suis toujours ouvert à la connexion et à la discussion de nouveaux projets ou idées. Vous pouvez me trouver sur ces plateformes:",
             },
             ar: {
-                'brand_name': "فوراتسا",
                 'greeting_main': "مرحباً، أنا <span class='accent-text glow'>فوراتسا</span>.",
                 'greeting_secondary': "مطور متخصص في بناء <b class='gradient-text'>تطبيقات الويب</b> الحديثة والقوية.",
                 'dive_in': "ابدأ",
@@ -851,7 +856,6 @@
                 'contact_desc': "أنا دائمًا منفتح على التواصل ومناقشة المشاريع أو الأفكار الجديدة. يمكنك العثور عليّ على هذه المنصات:",
             },
             ru: {
-                'brand_name': "вораца",
                 'greeting_main': "Привет, я <span class='accent-text glow'>вораца</span>.",
                 'greeting_secondary': "Разработчик, специализирующийся на создании современных и надежных <b class='gradient-text'>Веб-приложений</b>.",
                 'dive_in': "Начать",
@@ -991,13 +995,10 @@
             const currentLangFlag = document.getElementById('current-lang-flag');
             currentLangFlag.src = FLAG_URLS[currentLanguage];
             currentLangFlag.alt = `Flag of ${LANGUAGE_NAMES[currentLanguage]}`;
-            
-            // Update active state in dropdown
             document.querySelectorAll('.lang-option').forEach(option => {
                 option.classList.remove('active');
             });
             document.getElementById(`lang-${currentLanguage}-option`).classList.add('active');
-            
             runTitleAnimation();
         }
         const originalButtonTexts = {};
