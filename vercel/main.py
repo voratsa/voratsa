@@ -22,5 +22,9 @@ def serveea():
 def servea():
     return send_file('g/sitemap.xml')
 
+@app.route('/.well-known/discord')
+def meow():
+    return send_file('.well-known/discord')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
